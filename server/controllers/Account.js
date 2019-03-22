@@ -67,7 +67,7 @@ const signup = (request, response) => {
 
     savePromise.catch((err) => {
       if (err.code === 11000) {
-        return res.status(r00).json({ error: 'Username already in use.' });
+        return res.status(400).json({ error: 'Username already in use.' });
       }
 
       return res.status(400).json({ error: 'An error occurred' });
