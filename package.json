@@ -2,8 +2,8 @@
   "name": "Logins",
   "version": "1.0.0",
   "engines": {
-    "node": "7.5.0",
-    "npm": "4.0.5"
+    "node": "11.3.0",
+    "npm": "6.4.1"
   },
   "description": "A Simple Login Example using Node.js, Mongo and Redis",
   "main": "./server/app.js",
@@ -21,7 +21,7 @@
     "Redis",
     "Login"
   ],
-  "author": "Cody Van De Mark",
+  "author": "Alex Pasieka",
   "license": "Apache 2.0",
   "dependencies": {
     "body-parser": "^1.15.0",
