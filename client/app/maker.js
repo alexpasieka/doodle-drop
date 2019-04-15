@@ -1,99 +1,47 @@
-const handleDomo = (e) => {
+const handleDoodle = (e) => {
 	e.preventDefault();
 
-	$("#domoMessage").animate({width:'hide'}, 350);
-
-	if ($("#domoName").val() == '' || $("#domoAge").val() == '' || $("#domoLevel").val() == '') {
-		handleError("RAWR! All fields are required");
-		return false;
+	if ($("#doodleTitle").val() == '' || $("#doodleImage").val() == '' || $("#doodleDescription").val() == '') {
+		alert("All fields are required.");
+		return;
 	}
 
-	sendAjax('POST', $("#domoForm").attr("action"), $("#domoForm").serialize(), function() {
-		loadDomosFromServer();
+	// send AJAX
+	$.ajax({
+		type: $('#doodleForm').attr('method'),
+		url: $('#doodleForm').attr('action'),
+		data: $('#doodleForm').serialize(),
+		dataType: 'json',
+		success: window.location = '/user',
 	});
 };
 
-const helloDomo = (domo) => {
-	handleError(`My name is ${domo.name}. I'm ${domo.age} years old. I'm level ${domo.level}.`);
-};
-
-const DomoForm = (props) => {
+const DoodleForm = () => {
 	return (
-		<form id="domoForm"
-					onSubmit={handleDomo}
-					name="domoForm"
-					action="/maker"
+		<form id="doodleForm"
+					action="/upload"
 					method="POST"
-					className="domoForm"
+					onSubmit={handleDoodle}
 			>
-			<label htmlFor="name">Name: </label>
-			<input id="domoName" type="text" name="name" placeholder="Domo Name"/>
-			<label htmlFor="age">Age: </label>
-			<input id="domoAge" type="text" name="age" placeholder="Domo Age"/>
-			<label htmlFor="level">Level: </label>
-			<input id="domoLevel" type="text" name="level" placeholder="Domo Level"/>
-			<input type="hidden" name="_csrf" value={props.csrf}/>
-			<input className="makeDomoSubmit" type="submit" value="Make Domo"/>
+			<label htmlFor="doodleTitle">Title: </label>
+			<input name="title" type="text" id="doodleTitle"/>
+
+			<label htmlFor="Image">Image: </label>
+			<input name="image" type="text" id="doodleImage"/>
+
+			<label htmlFor="description">Description: </label>
+			<input name="description" type="text" id="doodleDescription"/>
+
+			<input type="submit" value="Upload Doodle"/>
 		</form>
 	);
 };
 
-const DomoList = function(props) {
-	if (props.domos.length === 0) {
-		return (
-			<div className="domoList">
-				<h3 className="emptyDomo">No Domos Yet</h3>
-			</div>
-		);
-	}
-
-	const domoNodes = props.domos.map(function(domo) {
-		return (
-			<div key={domo._id} className="domo" onClick={function() {helloDomo(domo)}}>
-				<img src="/assets/img/domoface.jpeg" alt="domo face" className="domoFace"/>
-				<h3 className="domoName"> Name: {domo.name} </h3>
-				<h3 className="domoAge"> Age: {domo.age} </h3>
-				<h3 className="domoLevel"> Level: {domo.level} </h3>
-			</div>
-		);
-	});
-
-	return (
-		<div className="domoList">
-			{domoNodes}
-		</div>
-	);
-};
-
-const loadDomosFromServer = () => {
-	sendAjax('GET', '/getDomos', null, (data) => {
-		ReactDOM.render(
-			<DomoList domos={data.domos}/>,
-			document.querySelector("#domos")
-		);
-	});
-};
-
-const setup = function(csrf) {
+const setup = () => {
 	ReactDOM.render(
-		<DomoForm csrf={csrf}/>,
-		document.querySelector("#makeDomo")
+		<DoodleForm/>,
+		document.querySelector("#content")
 	);
-
-	ReactDOM.render(
-		<DomoList domos={[]}/>,
-		document.querySelector("#domos")
-	);
-
-	loadDomosFromServer();
 };
 
-const getToken = () => {
-	sendAjax('GET', '/getToken', null, (result) => {
-		setup(result.csrfToken);
-	});
-};
-
-$(document).ready(function() {
-	getToken();
-});
+$(document).ready(setup());

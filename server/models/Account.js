@@ -1,13 +1,19 @@
+// import libraries
 const crypto = require('crypto');
 const mongoose = require('mongoose');
 
+// initialize database promise
 mongoose.Promise = global.Promise;
 
+// declare model
 let AccountModel = {};
+
+// security constants
 const iterations = 10000;
 const saltLength = 64;
 const keyLength = 64;
 
+// define model schema
 const AccountSchema = new mongoose.Schema({
   username: {
     type: String,
@@ -16,45 +22,30 @@ const AccountSchema = new mongoose.Schema({
     unique: true,
     match: /^[A-Za-z0-9_\-.]{1,16}$/,
   },
+
   salt: {
     type: Buffer,
     required: true,
   },
+
   password: {
     type: String,
     required: true,
   },
+
   createdDate: {
     type: Date,
     default: Date.now,
   },
 });
 
+// upload new account to API
 AccountSchema.statics.toAPI = doc => ({
-  // _id is built into your mongo document and is guaranteed to be unique
   username: doc.username,
   _id: doc._id,
 });
 
-const validatePassword = (doc, password, callback) => {
-  const pass = doc.password;
-
-  return crypto.pbkdf2(password, doc.salt, iterations, keyLength, 'RSA-SHA512', (err, hash) => {
-    if (hash.toString('hex') !== pass) {
-      return callback(false);
-    }
-    return callback(true);
-  });
-};
-
-AccountSchema.statics.findByUsername = (name, callback) => {
-  const search = {
-    username: name,
-  };
-
-  return AccountModel.findOne(search, callback);
-};
-
+// generate hash for salt
 AccountSchema.statics.generateHash = (password, callback) => {
   const salt = crypto.randomBytes(saltLength);
 
@@ -63,6 +54,28 @@ AccountSchema.statics.generateHash = (password, callback) => {
   );
 };
 
+// find user by given username
+AccountSchema.statics.findByUsername = (name, callback) => {
+  const search = {
+    username: name,
+  };
+
+  return AccountModel.findOne(search, callback);
+};
+
+// compare given password to password within database
+const validatePassword = (doc, password, callback) => {
+	const pass = doc.password;
+
+	return crypto.pbkdf2(password, doc.salt, iterations, keyLength, 'RSA-SHA512', (err, hash) => {
+		if (hash.toString('hex') !== pass) {
+			return callback(false);
+		}
+		return callback(true);
+	});
+};
+
+// authenticate user by given username and password
 AccountSchema.statics.authenticate = (username, password, callback) =>
 AccountModel.findByUsername(username, (err, doc) => {
   if (err) {
@@ -82,7 +95,12 @@ AccountModel.findByUsername(username, (err, doc) => {
   });
 });
 
+AccountSchema.statics.changePassword = (user, newPassword) => {
+  AccountModel.updateOne({ _id: user }, { password: newPassword });
+};
+
+// create model based on schema
 AccountModel = mongoose.model('Account', AccountSchema);
 
+// export model
 module.exports.AccountModel = AccountModel;
-module.exports.AccountSchema = AccountSchema;

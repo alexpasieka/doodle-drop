@@ -1,81 +1,69 @@
 // import libraries
 const path = require('path');
-const express = require('express');
-const compression = require('compression');
-const favicon = require('serve-favicon');
-const cookieParser = require('cookie-parser');
-const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
-const expressHandlebars = require('express-handlebars');
-const session = require('express-session');
-const RedisStore = require('connect-redis')(session);
 const url = require('url');
-const csrf = require('csurf');
+const mongoose = require('mongoose');
+const express = require('express');
+const handlebars = require('express-handlebars');
+const favicon = require('serve-favicon');
+const compression = require('compression');
+const bodyParser = require('body-parser');
+const session = require('express-session');
+const Redis = require('connect-redis')(session);
+const cookieParser = require('cookie-parser');
 
-const port = process.env.PORT || process.env.NODE_PORT || 3000;
-
-const dbURL = process.env.MONGODB_URI || 'mongodb://localhost/DomoMaker';
-
+// connect to MongoDB using mongoose
+const dbURL = process.env.MONGODB_URI || 'mongodb://localhost/doodle-drop';
 mongoose.connect(dbURL, (err) => {
   if (err) {
     throw err;
   }
 });
 
+// connect to Redis
 let redisURL = {
   hostname: 'localhost',
   port: 6379,
 };
-
-let redisPASS;
-
-if (process.env.REDISCLOUD_URL){
+let redisPassword;
+if (process.env.REDISCLOUD_URL) {
   redisURL = url.parse(process.env.REDISCLOUD_URL);
-  redisPASS = redisURL.auth.split(':')[1];
+  redisPassword = redisURL.auth.split(':')[1];
 }
 
-// pull in our routes
-const router = require('./router.js');
-
+// define express app
 const app = express();
+app.engine('handlebars', handlebars());
+app.set('view engine', 'handlebars');
+app.set('views', `${__dirname}/../views`);
+app.disable('x-powered-by');
 app.use('/assets', express.static(path.resolve(`${__dirname}/../hosted/`)));
 app.use(favicon(`${__dirname}/../hosted/img/favicon.png`));
-app.disable('x-powered-by');
 app.use(compression());
 app.use(bodyParser.urlencoded({
   extended: true,
 }));
 app.use(session({
   key: 'sessionid',
-  store: new RedisStore({
+  store: new Redis({
     host: redisURL.hostname,
     port: redisURL.port,
-    pass: redisPASS,
+    pass: redisPassword,
   }),
-  secret: 'Domo Arigato',
+  secret: 'Doodle Drop',
   resave: true,
   saveUninitialized: true,
   cookie: {
     httpOnly: true,
   },
 }));
-app.engine('handlebars', expressHandlebars({ defaultLayout: 'main' }));
-app.set('view engine', 'handlebars');
-app.set('views', `${__dirname}/../views`);
 app.use(cookieParser());
 
-// csrf must come AFTER app.use(cookieParser());
-// and app.use(session({ ....... });
-// should come BEFORE the router
-app.use(csrf());
-app.use((err, req, res, next) => {
-  if (err.code !== 'EBADCSRFTOKEN') return next(err);
-
-  return false;
-});
-
+// utilize router
+const router = require('./router.js');
 router(app);
 
+// listen to port
+const port = process.env.PORT || process.env.NODE_PORT || 3000;
 app.listen(port, (err) => {
   if (err) {
     throw err;

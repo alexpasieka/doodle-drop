@@ -1,2 +1,3 @@
+// export all controllers as one module
 module.exports.Account = require('./Account.js');
-module.exports.Domo = require('./Domo.js');
+module.exports.Doodle = require('./Doodle.js');

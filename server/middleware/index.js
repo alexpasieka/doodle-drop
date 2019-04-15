@@ -1,35 +1,27 @@
+// cannot access page if not logged in yet
 const requiresLogin = (req, res, next) => {
+	// if there is not an active session, redirect to home page
   if (!req.session.account) {
     return res.redirect('/');
   }
+
+  // move to next middleware function
   return next();
 };
 
+// cannot access page if already logged in
 const requiresLogout = (req, res, next) => {
+	// if there is an active session, redirect to user page
   if (req.session.account) {
-    return res.redirect('/maker');
+    return res.redirect('/user');
   }
 
+  // move to next middleware function
   return next();
 };
 
-const requiresSecure = (req, res, next) => {
-	if (req.headers['x-forwarded-proto'] !== 'https') {
-		return res.redirect(`https://${req.hostname}${req.url}`);
-	}
-	return next();
+// middleware exports
+module.exports = {
+  requiresLogin,
+  requiresLogout,
 };
-
-const bypassSecure = (req, res, next) => {
-	next();
-};
-
-module.exports.requiresLogin = requiresLogin;
-module.exports.requiresLogout = requiresLogout;
-
-if (process.env.NODE_ENV === 'production') {
-	module.exports.requiresSecure = requiresSecure;
-}
-else {
-	module.exports.requiresSecure = bypassSecure;
-}

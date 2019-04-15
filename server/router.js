@@ -1,16 +1,36 @@
+// import functions
 const controllers = require('./controllers');
-const mid = require('./middleware');
+const middleware = require('./middleware');
 
+// define router
 const router = (app) => {
-	app.get('/getToken', mid.requiresSecure, controllers.Account.getToken);
-	app.get('/getDomos', mid.requiresLogin, controllers.Domo.getDomos);
-	app.get('/login', mid.requiresSecure, mid.requiresLogout, controllers.Account.loginPage);
-	app.post('/login', mid.requiresSecure, mid.requiresLogout, controllers.Account.login);
-	app.post('/signup', mid.requiresSecure, mid.requiresLogout, controllers.Account.signup);
-	app.get('/logout', mid.requiresLogin, controllers.Account.logout);
-	app.get('/maker', mid.requiresLogin, controllers.Domo.makerPage);
-	app.post('/maker', mid.requiresLogin, controllers.Domo.make);
-	app.get('/', mid.requiresSecure, mid.requiresLogout, controllers.Account.loginPage);
+	// home page
+  app.get('/', controllers.Doodle.homePage);
+
+	// login page
+  app.get('/login', middleware.requiresLogout, controllers.Account.loginPage);
+  app.post('/login', middleware.requiresLogout, controllers.Account.login);
+
+	// signup page
+  app.post('/signup', middleware.requiresLogout, controllers.Account.signup);
+
+	// user page
+  app.get('/user', middleware.requiresLogin, controllers.Doodle.userPage);
+
+  // upload page
+	app.get('/upload', middleware.requiresLogin, controllers.Doodle.uploadPage);
+	app.post('/upload', middleware.requiresLogin, controllers.Doodle.upload);
+
+	// change password page
+  app.get('/change-password', middleware.requiresLogin, controllers.Account.changePasswordPage);
+  app.post('/change-password', middleware.requiresLogin, controllers.Account.changePassword);
+
+	// logout
+  app.get('/logout', middleware.requiresLogin, controllers.Account.logout);
+
+  // 404 page not found redirection
+	app.get('/*', controllers.Doodle.pageNotFound);
 };
 
+// export router
 module.exports = router;

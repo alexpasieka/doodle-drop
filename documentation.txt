@@ -1,0 +1,28 @@
+Alex Pasieka
+Doodle Drop
+
+Doodle Drop is a web application for posting and sharing hand-drawn doodles.
+Users can create an account, post doodles, view all their doodles on their account page,
+and change their password if they want.
+Also, regardless of if a user has an account, everyone can view the home page,
+which features all doodles posted by all accounts.
+
+In terms of a profit model, as shown by the first post on the home page,
+advertisements could be placed where posts would normally be.
+
+I used Handlebars for a templating language. It is mostly used for populating both
+the home page and a user's account page with respective doodles.
+
+I built this app using the MVC architecture by writing controllers that grabbed data
+from the needed models stored within mongoDB using mongoose and passing that data into
+views defined in a separate folder.
+
+Specifically, mongoDB stored not only all of the doodles (including each doodle's information),
+but also all of the users' account data (including username and password).
+
+For above and beyond, I did mix in a bit of React for a few dynamic pages, mainly on the login/signup
+page and the upload page. For some help with styling, I utilized Bootstrap.
+
+By the end, I was running out of time, so there are parts of my code that are not as organized and
+commented as other parts. I hope I made up for that with the actual look and functionality of the
+application.

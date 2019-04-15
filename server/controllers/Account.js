@@ -1,23 +1,22 @@
+// import models
 const models = require('../models');
 
+// referencing account model
 const Account = models.Account;
 
+// display login/signup page
 const loginPage = (req, res) => {
-  res.render('login', { csrfToken: req.csrfToken() });
+  res.render('login');
 };
 
-const logout = (req, res) => {
-  req.session.destroy();
-  res.redirect('/');
-};
-
+// user login
 const login = (request, response) => {
   const req = request;
   const res = response;
 
 	// force cast to string to cove some security flaws
   const username = `${req.body.username}`;
-  const password = `${req.body.pass}`;
+  const password = `${req.body.password}`;
 
   if (!username || !password) {
     return res.status(400).json({ error: 'RAWR! All fields are required' });
@@ -30,28 +29,29 @@ const login = (request, response) => {
 
     req.session.account = Account.AccountModel.toAPI(account);
 
-    return res.json({ redirect: '/maker' });
+    return res.json({ redirect: '/user' });
   });
 };
 
+// user signup
 const signup = (request, response) => {
   const req = request;
   const res = response;
 
 	// cast to strings to cover up some security flaws
   req.body.username = `${req.body.username}`;
-  req.body.pass = `${req.body.pass}`;
-  req.body.pass2 = `${req.body.pass2}`;
+  req.body.password = `${req.body.password}`;
+  req.body.password2 = `${req.body.password2}`;
 
-  if (!req.body.username || !req.body.pass || !req.body.pass2) {
+  if (!req.body.username || !req.body.password || !req.body.password2) {
     return res.status(400).json({ error: 'RAWR! All fields are required' });
   }
 
-  if (req.body.pass !== req.body.pass2) {
+  if (req.body.password !== req.body.password2) {
     return res.status(400).json({ error: 'RAWR! Passwords do not match' });
   }
 
-  return Account.AccountModel.generateHash(req.body.pass, (salt, hash) => {
+  return Account.AccountModel.generateHash(req.body.password, (salt, hash) => {
     const accountData = {
       username: req.body.username,
       salt,
@@ -64,8 +64,8 @@ const signup = (request, response) => {
 
     savePromise.then(() => {
       req.session.account = Account.AccountModel.toAPI(newAccount);
-      res.json({ redirect: '/maker' });
-		});
+      res.json({ redirect: '/user' });
+    });
 
     savePromise.catch((err) => {
       if (err.code === 11000) {
@@ -77,19 +77,45 @@ const signup = (request, response) => {
   });
 };
 
-const getToken = (request, response) => {
+const changePasswordPage = (req, res) => {
+  res.render('change-password');
+};
+
+const changePassword = (request, response) => {
   const req = request;
   const res = response;
 
-  const csrfJSON = {
-    csrfToken: req.csrfToken(),
-  };
+  if (!req.body.newPassword || !req.body.newPassword2) {
+    return res.status(400).json({ error: 'RAWR! All fields are required' });
+  }
 
-  res.json(csrfJSON);
+  if (req.body.newPassword !== req.body.newPassword2) {
+    return res.status(400).json({ error: 'RAWR! Passwords do not match' });
+  }
+
+  Account.AccountModel.generateHash(req.body.newPassword, (salt, hash) => {
+    const updatePromise = Account.AccountModel.updateOne({ _id: req.session.account._id },
+      {
+      	salt,
+        password: hash,
+      });
+
+		updatePromise.then(res.redirect('/user'));
+  });
 };
 
-module.exports.loginPage = loginPage;
-module.exports.login = login;
-module.exports.logout = logout;
-module.exports.signup = signup;
-module.exports.getToken = getToken;
+// when a user logs out, end the active session and redirect back to the home page
+const logout = (req, res) => {
+  req.session.destroy();
+  res.redirect('/');
+};
+
+// module exports
+module.exports = {
+  loginPage,
+  login,
+  signup,
+  changePasswordPage,
+  changePassword,
+  logout,
+};

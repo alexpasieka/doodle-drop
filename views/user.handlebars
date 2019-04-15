@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8"/>
+    <title>Doodle Drop</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/assets/img/favicon.png"/>
+    <!-- Bootstrap Style -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <!-- Style -->
+    <link rel="stylesheet" type="text/css" href="/assets/style.css"/>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <!-- Popper.js (Required by Bootstrap) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <!-- Bootstrap Script -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <!-- Masthead -->
+    <div id="masthead">
+        <!-- Title -->
+        <h1 id="title">Doodle Drop</h1>
+
+        <nav>
+            <!-- Home Button -->
+            <a href="/">Home</a>
+            <!-- Upload Doodle Button -->
+            <a href="/upload">Upload Doodle</a>
+            <!-- Change Password Button -->
+            <a href="change-password">Change Password</a>
+            <!-- Log Out Button -->
+            <a href="/logout">Log Out</a>
+        </nav>
+    </div>
+
+    <!-- User Doodles -->
+    <section id="userDoodles">
+        <div id="doodles">
+            {{#if doodles}}
+                {{#each doodles}}
+                    <div class="doodle">
+                        <h3 class="doodle-header">{{this.title}}</h3>
+                        <img class="thumbnail" src={{this.image}} alt="doodle"/>
+                        <h3 class="doodleDescription">{{this.description}}</h3>
+                    </div>
+                {{/each}}
+            {{else}}
+                <h3 class="noDoodles">No Doodles Yet</h3>
+            {{/if}}
+        </div>
+    </section>
+</body>
+
+</html>
