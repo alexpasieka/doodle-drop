@@ -86,11 +86,11 @@ const changePassword = (request, response) => {
   const res = response;
 
   if (!req.body.newPassword || !req.body.newPassword2) {
-    return res.status(400).json({ error: 'RAWR! All fields are required' });
+    res.status(400).json({ error: 'RAWR! All fields are required' });
   }
 
   if (req.body.newPassword !== req.body.newPassword2) {
-    return res.status(400).json({ error: 'RAWR! Passwords do not match' });
+    res.status(400).json({ error: 'RAWR! Passwords do not match' });
   }
 
   Account.AccountModel.generateHash(req.body.newPassword, (salt, hash) => {
@@ -100,7 +100,7 @@ const changePassword = (request, response) => {
         password: hash,
       });
 
-    return updatePromise.then(res.redirect('/user'));
+    updatePromise.then(res.redirect('/user'));
   });
 };
 
