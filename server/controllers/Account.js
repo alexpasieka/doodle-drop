@@ -96,11 +96,11 @@ const changePassword = (request, response) => {
   Account.AccountModel.generateHash(req.body.newPassword, (salt, hash) => {
     const updatePromise = Account.AccountModel.updateOne({ _id: req.session.account._id },
       {
-      	salt,
+        salt,
         password: hash,
       });
 
-		updatePromise.then(res.redirect('/user'));
+    return updatePromise.then(res.redirect('/user'));
   });
 };
 
