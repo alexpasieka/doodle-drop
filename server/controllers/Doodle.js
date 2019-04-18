@@ -11,7 +11,13 @@ const homePage = (req, res) => {
       return res.status(400).json({ error: 'An error occurred.' });
     }
 
-    return res.render('home', { doodles: docs });
+    // checking if the user is logged in or not
+    let loggedIn = false;
+    if (req.session.account !== undefined) {
+      loggedIn = true;
+    }
+
+    return res.render('home', { doodles: docs, loggedIn });
   });
 };
 

@@ -25,8 +25,14 @@
     <div id="masthead">
         <!-- Title -->
         <h1 id="title">Doodle Drop</h1>
-        <!-- Log In/Sign Up Button -->
-        <a id="login-button" href="/login">Log In/Sign Up</a>
+
+        <nav>
+            {{#if loggedIn}}
+                <a id="login-button" href="/user">Account</a>
+            {{else}}
+                <a id="login-button" href="/login">Log In/Sign Up</a>
+            {{/if}}
+        </nav>
     </div>
 
     <!-- Page Content (All Doodles) -->
