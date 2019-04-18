@@ -1,5 +1,9 @@
 "use strict";
 
+var redirect = function redirect(response) {
+	window.location = response.redirect;
+};
+
 // define login React element
 var LoginWindow = function LoginWindow() {
 	return React.createElement(
@@ -145,8 +149,3 @@ var createSignupWindow = function createSignupWindow() {
 
 // display login window as default view when page loads
 $(document).ready(createLoginWindow());
-"use strict";
-
-var redirect = function redirect(response) {
-	window.location = response.redirect;
-};

@@ -1,3 +1,7 @@
+const redirect = (response) => {
+	window.location = response.redirect;
+};
+
 // define login React element
 const LoginWindow = () => {
 	return (

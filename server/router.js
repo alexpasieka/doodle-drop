@@ -18,8 +18,8 @@ const router = (app) => {
   app.get('/user', middleware.requiresLogin, controllers.Doodle.userPage);
 
   // upload page
-	app.get('/upload', middleware.requiresLogin, controllers.Doodle.uploadPage);
-	app.post('/upload', middleware.requiresLogin, controllers.Doodle.upload);
+  app.get('/upload', middleware.requiresLogin, controllers.Doodle.uploadPage);
+  app.post('/upload', middleware.requiresLogin, controllers.Doodle.upload);
 
 	// change password page
   app.get('/change-password', middleware.requiresLogin, controllers.Account.changePasswordPage);
@@ -29,7 +29,7 @@ const router = (app) => {
   app.get('/logout', middleware.requiresLogin, controllers.Account.logout);
 
   // 404 page not found redirection
-	app.get('/*', controllers.Doodle.pageNotFound);
+  app.get('/*', controllers.Doodle.pageNotFound);
 };
 
 // export router

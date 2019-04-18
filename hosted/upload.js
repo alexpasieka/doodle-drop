@@ -53,8 +53,3 @@ var setup = function setup() {
 };
 
 $(document).ready(setup());
-"use strict";
-
-var redirect = function redirect(response) {
-	window.location = response.redirect;
-};
