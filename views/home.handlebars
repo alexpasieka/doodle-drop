@@ -9,6 +9,8 @@
     <link rel="shortcut icon" href="/assets/img/favicon.png"/>
     <!-- Bootstrap Style -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
     <!-- Style -->
     <link rel="stylesheet" type="text/css" href="/assets/style.css"/>
 
@@ -24,11 +26,16 @@
     <!-- Masthead -->
     <div id="masthead">
         <!-- Title -->
-        <h1 id="title">Doodle Drop</h1>
+        <h1 id="title"><a href="/">Doodle Drop</a></h1>
 
         <nav>
             {{#if loggedIn}}
-                <a id="login-button" href="/user">Account</a>
+                <button data-toggle="dropdown" type="button" id="user-menu">{{username}} <i class="fas fa-caret-down"></i></button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="/user">My Doodles</a>
+                    <a class="dropdown-item" href="/change-password">Change Password</a>
+                    <a class="dropdown-item" href="/logout">Logout</a>
+                </div>
             {{else}}
                 <a id="login-button" href="/login">Log In/Sign Up</a>
             {{/if}}

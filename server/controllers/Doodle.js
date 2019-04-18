@@ -11,13 +11,15 @@ const homePage = (req, res) => {
       return res.status(400).json({ error: 'An error occurred.' });
     }
 
-    // checking if the user is logged in or not
+    // if the user is logged in, pass their username over to the view
     let loggedIn = false;
+    let username = '';
     if (req.session.account !== undefined) {
       loggedIn = true;
+      username = req.session.account.username;
     }
 
-    return res.render('home', { doodles: docs, loggedIn });
+    return res.render('home', { doodles: docs, loggedIn, username });
   });
 };
 

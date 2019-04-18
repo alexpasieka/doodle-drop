@@ -8,11 +8,9 @@
   "description": "A web app for posting and sharing hand-drawn doodles.",
   "main": "./server/app.js",
   "scripts": {
-
     "cd": "cd 'documents/school/igme 430/project 2'",
     "mongodb": "mongod --config /usr/local/etc/mongod.conf",
     "redis": "redis-server /usr/local/etc/redis.conf",
-
     "build": "gulp build",
     "watch": "gulp watch",
     "start": "node ./server/app.js",
