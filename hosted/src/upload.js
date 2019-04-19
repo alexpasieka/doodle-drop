@@ -24,27 +24,42 @@ var DoodleForm = function DoodleForm() {
 		{ id: "doodleForm",
 			action: "/upload",
 			method: "POST",
-			onSubmit: handleDoodle
-		},
+			onSubmit: handleDoodle },
 		React.createElement(
-			"label",
-			{ htmlFor: "doodleTitle" },
-			"Title: "
+			"div",
+			{ className: "input-container" },
+			React.createElement(
+				"label",
+				{ htmlFor: "doodleTitle" },
+				"Title: "
+			),
+			React.createElement("input", { name: "title", type: "text", id: "doodleTitle" })
 		),
-		React.createElement("input", { name: "title", type: "text", id: "doodleTitle" }),
 		React.createElement(
-			"label",
-			{ htmlFor: "Image" },
-			"Image: "
+			"div",
+			{ className: "input-container" },
+			React.createElement(
+				"label",
+				{ htmlFor: "Image" },
+				"Image: "
+			),
+			React.createElement("input", { name: "image", type: "text", id: "doodleImage" })
 		),
-		React.createElement("input", { name: "image", type: "text", id: "doodleImage" }),
 		React.createElement(
-			"label",
-			{ htmlFor: "description" },
-			"Description: "
+			"div",
+			{ className: "input-container" },
+			React.createElement(
+				"label",
+				{ htmlFor: "description" },
+				"Description: "
+			),
+			React.createElement("input", { name: "description", type: "text", id: "doodleDescription" })
 		),
-		React.createElement("input", { name: "description", type: "text", id: "doodleDescription" }),
-		React.createElement("input", { type: "submit", value: "Upload Doodle" })
+		React.createElement(
+			"div",
+			{ className: "submit-container" },
+			React.createElement("input", { type: "submit", value: "Upload Doodle" })
+		)
 	);
 };
 

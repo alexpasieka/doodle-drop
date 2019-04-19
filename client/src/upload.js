@@ -21,18 +21,26 @@ const DoodleForm = () => {
 		<form id="doodleForm"
 					action="/upload"
 					method="POST"
-					onSubmit={handleDoodle}
-			>
-			<label htmlFor="doodleTitle">Title: </label>
-			<input name="title" type="text" id="doodleTitle"/>
+					onSubmit={handleDoodle}>
 
-			<label htmlFor="Image">Image: </label>
-			<input name="image" type="text" id="doodleImage"/>
+			<div className="input-container">
+				<label htmlFor="doodleTitle">Title: </label>
+				<input name="title" type="text" id="doodleTitle"/>
+			</div>
 
-			<label htmlFor="description">Description: </label>
-			<input name="description" type="text" id="doodleDescription"/>
+			<div className="input-container">
+				<label htmlFor="Image">Image: </label>
+				<input name="image" type="text" id="doodleImage"/>
+			</div>
 
-			<input type="submit" value="Upload Doodle"/>
+			<div className="input-container">
+				<label htmlFor="description">Description: </label>
+				<input name="description" type="text" id="doodleDescription"/>
+			</div>
+
+			<div className="submit-container">
+				<input type="submit" value="Upload Doodle"/>
+			</div>
 		</form>
 	);
 };

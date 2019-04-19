@@ -7,27 +7,34 @@ var redirect = function redirect(response) {
 // define login React element
 var LoginWindow = function LoginWindow() {
 	return React.createElement(
-		"div",
-		null,
+		"form",
+		{ id: "loginForm",
+			action: "/login",
+			method: "POST",
+			onSubmit: handleLogin },
 		React.createElement(
-			"form",
-			{ id: "loginForm",
-				action: "/login",
-				method: "POST",
-				onSubmit: handleLogin
-			},
+			"div",
+			{ className: "input-container" },
 			React.createElement(
 				"label",
 				{ htmlFor: "username" },
 				"Username: "
 			),
-			React.createElement("input", { name: "username", type: "text", id: "username" }),
+			React.createElement("input", { name: "username", type: "text", id: "username" })
+		),
+		React.createElement(
+			"div",
+			{ className: "input-container" },
 			React.createElement(
 				"label",
 				{ htmlFor: "password" },
 				"Password: "
 			),
-			React.createElement("input", { name: "password", type: "password", id: "password" }),
+			React.createElement("input", { name: "password", type: "password", id: "password" })
+		),
+		React.createElement(
+			"div",
+			{ className: "submit-container" },
 			React.createElement("input", { type: "submit", value: "Sign In" })
 		),
 		React.createElement(
@@ -69,33 +76,44 @@ var handleLogin = function handleLogin(e) {
 // define signup React element
 var SignupWindow = function SignupWindow() {
 	return React.createElement(
-		"div",
-		null,
+		"form",
+		{ id: "signupForm",
+			action: "/signup",
+			method: "POST",
+			onSubmit: handleSignup },
 		React.createElement(
-			"form",
-			{ id: "signupForm",
-				action: "/signup",
-				method: "POST",
-				onSubmit: handleSignup
-			},
+			"div",
+			{ className: "input-container" },
 			React.createElement(
 				"label",
 				{ htmlFor: "username" },
 				"Username: "
 			),
-			React.createElement("input", { name: "username", type: "text", id: "username" }),
+			React.createElement("input", { name: "username", type: "text", id: "username" })
+		),
+		React.createElement(
+			"div",
+			{ className: "input-container" },
 			React.createElement(
 				"label",
 				{ htmlFor: "password" },
 				"Password: "
 			),
-			React.createElement("input", { name: "password", type: "password", id: "password" }),
+			React.createElement("input", { name: "password", type: "password", id: "password" })
+		),
+		React.createElement(
+			"div",
+			{ className: "input-container" },
 			React.createElement(
 				"label",
 				{ htmlFor: "password2" },
 				"Retype Password: "
 			),
-			React.createElement("input", { name: "password2", type: "password", id: "password2" }),
+			React.createElement("input", { name: "password2", type: "password", id: "password2" })
+		),
+		React.createElement(
+			"div",
+			{ className: "submit-container" },
 			React.createElement("input", { type: "submit", value: "Sign up" })
 		),
 		React.createElement(
@@ -139,12 +157,12 @@ var handleSignup = function handleSignup(e) {
 
 // render React login element to document
 var createLoginWindow = function createLoginWindow() {
-	ReactDOM.render(React.createElement(LoginWindow, null), document.querySelector("#content"));
+	ReactDOM.render(React.createElement(LoginWindow, null), document.querySelector(".form-container"));
 };
 
 // render React signup element to document
 var createSignupWindow = function createSignupWindow() {
-	ReactDOM.render(React.createElement(SignupWindow, null), document.querySelector("#content"));
+	ReactDOM.render(React.createElement(SignupWindow, null), document.querySelector(".form-container"));
 };
 
 // display login window as default view when page loads

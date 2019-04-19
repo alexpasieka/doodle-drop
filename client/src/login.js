@@ -5,24 +5,28 @@ const redirect = (response) => {
 // define login React element
 const LoginWindow = () => {
 	return (
-		<div>
-			<form id="loginForm"
-						action="/login"
-						method="POST"
-						onSubmit={handleLogin}
-			>
+		<form id="loginForm"
+					action="/login"
+					method="POST"
+					onSubmit={handleLogin}>
+
+			<div className="input-container">
 				<label htmlFor="username">Username: </label>
 				<input name="username" type="text" id="username"/>
+			</div>
 
+			<div className="input-container">
 				<label htmlFor="password">Password: </label>
 				<input name="password" type="password" id="password"/>
+			</div>
 
+			<div className="submit-container">
 				<input type="submit" value="Sign In"/>
-			</form>
+			</div>
 
 			<label htmlFor="signupButton">Don't have an account yet?</label>
 			<button name="signupButton" id="signupButton" onClick={createSignupWindow}>Sign Up</button>
-		</div>
+		</form>
 	);
 };
 
@@ -52,27 +56,33 @@ const handleLogin = (e) => {
 // define signup React element
 const SignupWindow = () => {
 	return (
-		<div>
-			<form id="signupForm"
-						action="/signup"
-						method="POST"
-						onSubmit={handleSignup}
-			>
+		<form id="signupForm"
+					action="/signup"
+					method="POST"
+					onSubmit={handleSignup}>
+
+			<div className="input-container">
 				<label htmlFor="username">Username: </label>
 				<input name="username" type="text" id="username"/>
+			</div>
 
+			<div className="input-container">
 				<label htmlFor="password">Password: </label>
 				<input name="password" type="password" id="password"/>
+			</div>
 
+			<div className="input-container">
 				<label htmlFor="password2">Retype Password: </label>
 				<input name="password2" type="password" id="password2"/>
+			</div>
 
+			<div className="submit-container">
 				<input type="submit" value="Sign up"/>
-			</form>
+			</div>
 
 			<label htmlFor="loginButton">Already have an account?</label>
 			<button name="loginButton" id="loginButton" onClick={createLoginWindow}>Log In</button>
-		</div>
+		</form>
 	);
 };
 
@@ -106,7 +116,7 @@ const handleSignup = (e) => {
 const createLoginWindow = () => {
 	ReactDOM.render(
 		<LoginWindow/>,
-		document.querySelector("#content")
+		document.querySelector(".form-container")
 	);
 };
 
@@ -114,7 +124,7 @@ const createLoginWindow = () => {
 const createSignupWindow = () => {
 	ReactDOM.render(
 		<SignupWindow/>,
-		document.querySelector("#content")
+		document.querySelector(".form-container")
 	);
 };
 

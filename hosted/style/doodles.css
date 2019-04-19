@@ -1,0 +1,30 @@
+/* UPLOADED DOODLE */
+/* All Doodles Container */
+#doodles {
+  display: flex;
+  flex-flow: row wrap; }
+
+/* Single Doodle Container */
+.doodle {
+  height: 40%;
+  width: 20%;
+  margin: 2.5%;
+  padding: 1%;
+  cursor: pointer;
+  background-color: white;
+  border-radius: 3px;
+  box-shadow: 0 .1vh .4vh; }
+
+/* Header */
+.doodle-header {
+  height: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2vw;
+  margin-bottom: 1vw; }
+
+/* Thumbnail Image */
+.thumbnail {
+  height: 80%;
+  width: 100%; }

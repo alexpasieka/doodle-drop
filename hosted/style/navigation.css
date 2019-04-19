@@ -1,0 +1,50 @@
+#user-menu {
+  border: none;
+  color: #A5A5A5;
+  background-color: #565656;
+  outline: none;
+  margin-right: 5vh; }
+
+#user-menu:hover {
+  color: white; }
+
+.dropdown-menu {
+  margin-right: 5vh; }
+
+.dropdown-item {
+  margin: 0; }
+
+/* MASTHEAD */
+/* Masthead Container */
+#masthead {
+  height: 10%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #565656; }
+
+/* Masthead Title */
+#title {
+  color: white;
+  margin-left: 5vh;
+  font-size: 6vh; }
+
+/* Log In/Sign Up Button */
+nav a {
+  font-size: 2.5vh;
+  color: #A5A5A5;
+  text-decoration: none;
+  margin-right: 5vh; }
+
+nav a:hover {
+  color: white;
+  text-decoration: none; }
+
+a {
+  color: white;
+  text-decoration: none; }
+
+a:hover {
+  color: white;
+  text-decoration: none; }
