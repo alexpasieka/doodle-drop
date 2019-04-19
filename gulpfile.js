@@ -9,7 +9,7 @@ const nodemon = require('gulp-nodemon');
 gulp.task('sass', () => {
   gulp.src('./client/style/*.scss')
 		.pipe(sass().on('error', sass.logError))
-		.pipe(gulp.dest('./hosted/style/'));
+		.pipe(gulp.dest('./hosted/style'));
 });
 
 // transpiles all client-side ES6 to ES5 using babel
@@ -34,9 +34,9 @@ gulp.task('build', () => {
   gulp.start('lint');
 });
 
-// restarts server any time a change in client-side JavaScript or CSS is detected
+// restarts server any time a change in client-side JavaScript or SCSS is detected
 gulp.task('watch', () => {
-  gulp.watch('./client/style/*.scss', ['sass']); // TODO: why is it not watching for Sass changes?
+  gulp.watch('./client/style/*.scss', ['sass']);
   gulp.watch('./client/src/*.js', ['transpile']);
   nodemon({ script: './server/app.js', ext: 'js', tasks: ['lint'] });
 });
