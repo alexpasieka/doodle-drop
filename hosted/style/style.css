@@ -1,0 +1,112 @@
+/* HTML/Body Defaults and CSS Reset */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  font-family: 'Helvetica', sans-serif;
+  font-weight: lighter;
+  background-color: #E8E8E8; }
+
+h1, h2, p {
+  margin: 0;
+  padding: 0; }
+
+/*!* Button Defaults *!*/
+/*button {*/
+/*border: none;*/
+/*border-radius: 1vh;*/
+/*box-shadow: 0 0;*/
+/*transition: box-shadow .15s;*/
+/*outline: none;*/
+/*cursor: pointer;*/
+/*font-size: 2.5vh;*/
+/*background-color: #00D8FF;*/
+/*}*/
+/*button:hover {*/
+/*box-shadow: 0 .25vh .75vh;*/
+/*}*/
+/*button:active {*/
+/*box-shadow: 0 0;*/
+/*}*/
+#user-menu {
+  border: none;
+  color: #A5A5A5;
+  background-color: #565656;
+  outline: none;
+  margin-right: 5vh; }
+
+#user-menu:hover {
+  color: white; }
+
+.dropdown-menu {
+  margin-right: 5vh; }
+
+.dropdown-item {
+  margin: 0; }
+
+/* MASTHEAD */
+/* Masthead Container */
+#masthead {
+  height: 10%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #565656; }
+
+/* Masthead Title */
+#title {
+  color: white;
+  margin-left: 5vh;
+  font-size: 6vh; }
+
+/* Log In/Sign Up Button */
+nav a {
+  font-size: 2.5vh;
+  color: #A5A5A5;
+  text-decoration: none;
+  margin-right: 5vh; }
+
+nav a:hover {
+  color: white;
+  text-decoration: none; }
+
+a {
+  color: white;
+  text-decoration: none; }
+
+a:hover {
+  color: white;
+  text-decoration: none; }
+
+/* UPLOADED DOODLE */
+/* All Doodles Container */
+#doodles {
+  display: flex;
+  flex-flow: row wrap; }
+
+/* Single Doodle Container */
+.doodle {
+  height: 40%;
+  width: 20%;
+  margin: 2.5%;
+  padding: 1%;
+  cursor: pointer;
+  background-color: white;
+  border-radius: 3px;
+  box-shadow: 0 .1vh .4vh; }
+
+/* Header */
+.doodle-header {
+  height: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2vw;
+  margin-bottom: 1vw; }
+
+/* Thumbnail Image */
+.thumbnail {
+  height: 80%;
+  width: 100%; }

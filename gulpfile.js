@@ -1,14 +1,22 @@
 // import gulp libraries
 const gulp = require('gulp');
+const sass = require('gulp-sass');
 const babel = require('gulp-babel');
 const eslint = require('gulp-eslint');
 const nodemon = require('gulp-nodemon');
 
+// compiles all Sass files into CSS
+gulp.task('sass', () => {
+  gulp.src('./client/style/*.scss')
+		.pipe(sass().on('error', sass.logError))
+		.pipe(gulp.dest('./hosted/style'));
+});
+
 // transpiles all client-side ES6 to ES5 using babel
 gulp.task('transpile', () => {
-  gulp.src('./client/*.js')
+  gulp.src('./client/src/*.js')
 		.pipe(babel({ presets: ['env', 'react'] }))
-		.pipe(gulp.dest('./hosted'));
+		.pipe(gulp.dest('./hosted/src'));
 });
 
 // lints through all server-side JavaScript
@@ -19,14 +27,16 @@ gulp.task('lint', () => {
 		.pipe(eslint.failAfterError());
 });
 
-// builds transpiled and linted code
+// builds CSS and transpiles linted JavaScript
 gulp.task('build', () => {
-	gulp.start('transpile');
-	gulp.start('lint');
+	gulp.start('sass');
+  gulp.start('transpile');
+  gulp.start('lint');
 });
 
-// restarts server any time a change in client-side JavaScript is detected
+// restarts server any time a change in client-side JavaScript or CSS is detected
 gulp.task('watch', () => {
-  gulp.watch('./client/*.js', ['transpile']);
+	gulp.watch('./client/style/*.scss', ['sass']);
+  gulp.watch('./client/src/*.js', ['transpile']);
   nodemon({ script: './server/app.js', ext: 'js', tasks: ['lint'] });
 });
