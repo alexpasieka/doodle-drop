@@ -7,20 +7,25 @@
 
     <!-- Favicon -->
     <link rel="shortcut icon" href="/assets/img/favicon.png"/>
+
+    <!-- *** EXTERNAL CSS -->
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
     <!-- Bootstrap Style -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-
     <!-- CSS Reset -->
     <link rel="stylesheet" type="text/css" href="/assets/style/reset.css"/>
+
+    <!-- *** CUSTOM CSS *** -->
     <!-- Global Style -->
     <link rel="stylesheet" type="text/css" href="/assets/style/global.css"/>
-    <!-- Navigation Style -->
-    <link rel="stylesheet" type="text/css" href="/assets/style/navigation.css"/>
+    <!-- Masthead Style -->
+    <link rel="stylesheet" type="text/css" href="/assets/style/masthead.css"/>
+
     <!-- Doodles Style -->
     <link rel="stylesheet" type="text/css" href="/assets/style/doodles.css"/>
 
+    <!-- *** EXTERNAL JAVASCRIPT *** -->
     <!-- React -->
     <script src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
@@ -34,48 +39,33 @@
 
 <body>
     <!-- Masthead -->
-    <div id="masthead">
-        <!-- Title -->
-        <h1 id="title"><a href="/">Doodle Drop</a></h1>
-
-        <nav>
-            {{#if loggedIn}}
-                <button data-toggle="dropdown" type="button" id="user-menu">{{username}} <i class="fas fa-caret-down"></i></button>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="/user">My Doodles</a>
-                    <a class="dropdown-item" href="/change-password">Change Password</a>
-                    <a class="dropdown-item" href="/logout">Logout</a>
-                </div>
-            {{else}}
-                <a id="login-button" href="/login">Log In/Sign Up</a>
-            {{/if}}
-        </nav>
-    </div>
+    <div id="masthead" data-loggedin={{loggedIn}} data-username={{username}}></div>
 
     <!-- Page Content (All Doodles) -->
-    <section id="content">
-        <div id="doodles">
-            <!-- Advertisement -->
-            <div class="doodle">
-                <h2 class="doodle-header">Advertisement</h2>
-                <img class="thumbnail" src="https://arabiangazette.com/wp-content/uploads/2014/06/coke-advertising.jpg" alt="doodle"/>
-                <h3 class="doodleDescription">This is an ad.</h3>
-            </div>
-
-            <!-- All Uploaded Doodles -->
-            {{#if doodles}}
-                {{#each doodles}}
-                    <div class="doodle">
-                        <h2 class="doodle-header">{{this.title}}</h2>
-                        <img class="thumbnail" src={{this.image}} alt="doodle"/>
-                        <h3 class="doodleDescription">{{this.description}}</h3>
-                    </div>
-                {{/each}}
-            {{else}}
-                <h3 class="noDoodles">No Doodles Yet</h3>
-            {{/if}}
+    <div id="doodles">
+        <!-- Advertisement -->
+        <div class="doodle">
+            <h2 class="doodle-header">Advertisement</h2>
+            <img class="thumbnail" src="https://arabiangazette.com/wp-content/uploads/2014/06/coke-advertising.jpg" alt="doodle"/>
+            <h3 class="doodleDescription">This is an ad.</h3>
         </div>
-    </section>
+
+        <!-- All Uploaded Doodles -->
+        {{#if doodles}}
+            {{#each doodles}}
+                <div class="doodle">
+                    <h2 class="doodle-header">{{this.title}}</h2>
+                    <img class="thumbnail" src={{this.image}} alt="doodle"/>
+                    <h3 class="doodleDescription">{{this.description}}</h3>
+                </div>
+            {{/each}}
+        {{else}}
+            <h3 class="noDoodles">No Doodles Yet</h3>
+        {{/if}}
+    </div>
+
+    <!-- Masthead Script -->
+    <script src="/assets/src/masthead.js"></script>
 </body>
 
 </html>
