@@ -23,6 +23,31 @@ const homePage = (req, res) => {
   });
 };
 
+const deleteDoodle = (req, res) => {
+  console.log(req.body._id);
+  Doodle.DoodleModel.deleteOne({_id: req.body._id}, (err) => {
+    if (!err) {
+      return res.redirect('/user');
+    }
+  });
+};
+
+const drawDoodle = (req, res) => {
+	// if the user is logged in, pass their username over to the view
+	let loggedIn = false;
+	let username = '';
+	if (req.session.account !== undefined) {
+		loggedIn = true;
+		username = req.session.account.username;
+	}
+
+	return res.render('draw', { loggedIn, username });
+};
+
+const getDoodle = (req, res) => {
+  Doodle.DoodleModel.findOne({ title: "alex" }, ).exec((err, docs) => { console.log(docs._id); });
+};
+
 // get all doodles uploaded by user and display them on user page
 const userPage = (req, res) => {
   Doodle.DoodleModel.findByOwner(req.session.account._id, (err, docs) => {
@@ -30,7 +55,15 @@ const userPage = (req, res) => {
       return res.status(400).json({ error: 'An error occurred.' });
     }
 
-    return res.render('user', { doodles: docs });
+		// if the user is logged in, pass their username over to the view
+		let loggedIn = false;
+		let username = '';
+		if (req.session.account !== undefined) {
+			loggedIn = true;
+			username = req.session.account.username;
+		}
+
+    return res.render('user', { doodles: docs, loggedIn, username });
   });
 };
 
@@ -42,15 +75,15 @@ const uploadPage = (req, res) => {
 // upload new doodle
 const upload = (req, res) => {
   // make sure all required fields are filled out
-  if (!req.body.title || !req.body.image || !req.body.description) {
-    return res.status(400).json({ error: 'All fields are required.' });
-  }
+  // if (!req.body.title || !req.body.image || !req.body.description) {
+  //   return res.status(400).json({ error: 'All fields are required.' });
+  // }
 
   // new doodle data
   const doodle = {
-    title: req.body.title,
+    //title: req.body.title,
     image: req.body.image,
-    description: req.body.description,
+    //description: req.body.description,
     owner: req.session.account._id,
   };
 
@@ -84,6 +117,9 @@ const pageNotFound = (req, res) => {
 // module exports
 module.exports = {
   homePage,
+  getDoodle,
+  deleteDoodle,
+  drawDoodle,
   userPage,
   uploadPage,
   upload,

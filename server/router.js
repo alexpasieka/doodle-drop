@@ -28,6 +28,12 @@ const router = (app) => {
 	// logout
   app.get('/logout', middleware.requiresLogin, controllers.Account.logout);
 
+  app.get('/get', controllers.Doodle.getDoodle);
+
+  app.post('/delete', middleware.requiresLogin, controllers.Doodle.deleteDoodle);
+
+  app.get('/draw', middleware.requiresLogin, controllers.Doodle.drawDoodle);
+
   // 404 page not found redirection
   app.get('/*', controllers.Doodle.pageNotFound);
 };

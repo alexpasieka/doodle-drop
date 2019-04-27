@@ -1,7 +1,7 @@
 #user-menu {
   border: none;
-  color: #A5A5A5;
-  background-color: #565656;
+  color: black;
+  background-color: #00A5A8;
   outline: none;
   margin-right: 5vh; }
 
@@ -22,7 +22,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #565656; }
+  background-color: #00A5A8; }
 
 /* Masthead Title */
 #title {
@@ -33,7 +33,7 @@
 /* Log In/Sign Up Button */
 nav a {
   font-size: 2.5vh;
-  color: #A5A5A5;
+  color: #002323;
   text-decoration: none;
   margin-right: 5vh; }
 

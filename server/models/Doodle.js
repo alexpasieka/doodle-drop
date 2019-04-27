@@ -18,7 +18,6 @@ const setString = (string) => _.escape(string).trim();
 const DoodleSchema = new mongoose.Schema({
   title: {
     type: String,
-    required: true,
     trim: true,
     set: setString,
   },
@@ -32,7 +31,6 @@ const DoodleSchema = new mongoose.Schema({
 
   description: {
     type: String,
-    required: true,
     trim: true,
     set: setString,
   },

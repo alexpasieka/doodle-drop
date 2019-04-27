@@ -8,15 +8,16 @@ var Masthead = function Masthead(props) {
 			React.createElement(
 				"h1",
 				{ id: "title" },
-				React.createElement(
-					"a",
-					{ href: "/" },
-					"Doodle Drop"
-				)
+				"Doodle Drop"
 			),
 			React.createElement(
 				"nav",
 				null,
+				React.createElement(
+					"a",
+					{ href: "/" },
+					"Home"
+				),
 				React.createElement(
 					"button",
 					{ "data-toggle": "dropdown", type: "button", id: "user-menu" },
@@ -27,6 +28,11 @@ var Masthead = function Masthead(props) {
 				React.createElement(
 					"div",
 					{ className: "dropdown-menu" },
+					React.createElement(
+						"a",
+						{ className: "dropdown-item", href: "/draw" },
+						"Draw New Doodle"
+					),
 					React.createElement(
 						"a",
 						{ className: "dropdown-item", href: "/user" },

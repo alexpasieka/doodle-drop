@@ -10,9 +10,6 @@
   width: 20%;
   margin: 2.5%;
   padding: 1%;
-  cursor: pointer;
-  background-color: white;
-  border-radius: 3px;
   box-shadow: 0 .1vh .4vh;
 }
 /* Header */
@@ -28,4 +25,53 @@
 .thumbnail {
   height: 80%;
   width: 100%;
+}
+
+
+
+
+
+
+
+/* MODALS */
+/* Modal Container (Modal Dim) */
+.modal {
+  height: 100%;
+  width: 100%;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, .5);
+}
+/* Modal Content */
+.modal-content {
+  height: 75%;
+  width: 60%;
+  background-color: white;
+  animation-name: fly-in;
+  animation-duration: .25s;
+  border-radius: 0;
+  border: none;
+}
+/* Modal Entrance Animation */
+@keyframes fly-in {
+  from {
+    top: -100vh;
+    opacity: 0;
+  }
+  to {
+    top: 0;
+    opacity: 1;
+  }
+}
+/* Modal Header */
+.modal-header {
+  height: 10%;
+  background-color: #00787A;
+  border-radius: 0;
 }

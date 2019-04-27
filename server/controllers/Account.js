@@ -44,11 +44,11 @@ const signup = (request, response) => {
   req.body.password2 = `${req.body.password2}`;
 
   if (!req.body.username || !req.body.password || !req.body.password2) {
-    return res.status(400).json({ error: 'RAWR! All fields are required' });
+    return res.status(400).json({ error: 'All fields are required' });
   }
 
   if (req.body.password !== req.body.password2) {
-    return res.status(400).json({ error: 'RAWR! Passwords do not match' });
+    return res.status(400).json({ error: 'Passwords do not match' });
   }
 
   return Account.AccountModel.generateHash(req.body.password, (salt, hash) => {
@@ -78,7 +78,15 @@ const signup = (request, response) => {
 };
 
 const changePasswordPage = (req, res) => {
-  res.render('change-password');
+	// if the user is logged in, pass their username over to the view
+	let loggedIn = false;
+	let username = '';
+	if (req.session.account !== undefined) {
+		loggedIn = true;
+		username = req.session.account.username;
+	}
+
+	return res.render('change-password', { loggedIn, username });
 };
 
 const changePassword = (request, response) => {

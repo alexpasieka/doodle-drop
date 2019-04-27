@@ -7,20 +7,25 @@
 
     <!-- Favicon -->
     <link rel="shortcut icon" href="/assets/img/favicon.png"/>
+
+    <!-- *** EXTERNAL CSS -->
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
     <!-- Bootstrap Style -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-
     <!-- CSS Reset -->
     <link rel="stylesheet" type="text/css" href="/assets/style/reset.css"/>
+
+    <!-- *** CUSTOM CSS *** -->
     <!-- Global Style -->
     <link rel="stylesheet" type="text/css" href="/assets/style/global.css"/>
-    <!-- Navigation Style -->
-    <link rel="stylesheet" type="text/css" href="/assets/style/navigation.css"/>
+    <!-- Masthead Style -->
+    <link rel="stylesheet" type="text/css" href="/assets/style/masthead.css"/>
+
     <!-- Doodles Style -->
     <link rel="stylesheet" type="text/css" href="/assets/style/doodles.css"/>
 
+    <!-- *** EXTERNAL JAVASCRIPT *** -->
     <!-- React -->
     <script src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
@@ -34,38 +39,56 @@
 
 <body>
     <!-- Masthead -->
-    <div id="masthead">
-        <!-- Title -->
-        <h1 id="title">Doodle Drop</h1>
+    <div id="masthead" data-loggedin={{loggedIn}} data-username={{username}}></div>
 
-        <nav>
-            <!-- Home Button -->
-            <a href="/">Home</a>
-            <!-- Upload Doodle Button -->
-            <a href="/upload">Upload Doodle</a>
-            <!-- Change Password Button -->
-            <a href="change-password">Change Password</a>
-            <!-- Log Out Button -->
-            <a href="/logout">Log Out</a>
-        </nav>
-    </div>
+    <script>
+        let parser;
+        let doc;
+        let image;
+
+        const decodeEntities = (svg) => {
+            let txt = document.createElement('textarea');
+            txt.innerHTML = svg;
+            return txt.value;
+        };
+    </script>
 
     <!-- User Doodles -->
     <section id="userDoodles">
         <div id="doodles">
             {{#if doodles}}
                 {{#each doodles}}
-                    <div class="doodle">
-                        <h3 class="doodle-header">{{this.title}}</h3>
-                        <img class="thumbnail" src={{this.image}} alt="doodle"/>
-                        <h3 class="doodleDescription">{{this.description}}</h3>
+                    <div class="doodle"id='id_{{this._id}}'>
+                        <form method="POST"
+                              action="/delete"
+                              style="text-align: right; width: 100%;">
+
+                            <input type="submit" value="Delete" style="width: 100%;"/>
+                            <input type="hidden" name="_id" value={{this._id}} />
+                        </form>
                     </div>
+
+                    <script>
+                        image = decodeEntities('{{this.image}}');
+                        image = decodeEntities(image);
+
+                        parser = new DOMParser();
+                        doc = parser.parseFromString(image, 'image/svg+xml');
+                        document.querySelector('#id_{{this._id}}').innerHTML += '<svg viewBox="0 0 400 400">' + doc.documentElement.innerHTML + '</svg>';
+
+                    </script>
+
                 {{/each}}
             {{else}}
                 <h3 class="noDoodles">No Doodles Yet</h3>
             {{/if}}
         </div>
     </section>
+
+
+    <!-- Masthead Script -->
+    <script src="/assets/src/masthead.js"></script>
+
 </body>
 
 </html>

@@ -2,11 +2,14 @@ const Masthead = (props) => {
 	if (props.loggedIn === "true") {
 		return (
 			<React.Fragment>
-				<h1 id="title"><a href="/">Doodle Drop</a></h1>
+				<h1 id="title">Doodle Drop</h1>
 
 				<nav>
+					<a href="/">Home</a>
+
 					<button data-toggle="dropdown" type="button" id="user-menu">{props.username} <i className="fas fa-caret-down"></i></button>
 					<div className="dropdown-menu">
+						<a className="dropdown-item" href="/draw">Draw New Doodle</a>
 						<a className="dropdown-item" href="/user">My Doodles</a>
 						<a className="dropdown-item" href="/change-password">Change Password</a>
 						<a className="dropdown-item" href="/logout">Logout</a>

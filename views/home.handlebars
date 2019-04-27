@@ -41,31 +41,73 @@
     <!-- Masthead -->
     <div id="masthead" data-loggedin={{loggedIn}} data-username={{username}}></div>
 
-    <!-- Page Content (All Doodles) -->
-    <div id="doodles">
-        <!-- Advertisement -->
-        <div class="doodle">
-            <h2 class="doodle-header">Advertisement</h2>
-            <img class="thumbnail" src="https://arabiangazette.com/wp-content/uploads/2014/06/coke-advertising.jpg" alt="doodle"/>
-            <h3 class="doodleDescription">This is an ad.</h3>
-        </div>
+    <script>
+        let parser;
+        let doc;
+        let image;
 
-        <!-- All Uploaded Doodles -->
-        {{#if doodles}}
-            {{#each doodles}}
-                <div class="doodle">
-                    <h2 class="doodle-header">{{this.title}}</h2>
-                    <img class="thumbnail" src={{this.image}} alt="doodle"/>
-                    <h3 class="doodleDescription">{{this.description}}</h3>
-                </div>
-            {{/each}}
-        {{else}}
-            <h3 class="noDoodles">No Doodles Yet</h3>
-        {{/if}}
+        const decodeEntities = (svg) => {
+            let txt = document.createElement('textarea');
+            txt.innerHTML = svg;
+            return txt.value;
+        };
+    </script>
+
+
+    <!-- User Doodles -->
+    <section id="userDoodles">
+        <div id="doodles">
+            {{#if doodles}}
+                {{#each doodles}}
+                    <div class="doodle"id='id_{{this._id}}'></div>
+
+                    <script>
+                        image = decodeEntities('{{this.image}}');
+                        image = decodeEntities(image);
+
+                        parser = new DOMParser();
+                        doc = parser.parseFromString(image, 'image/svg+xml');
+                        document.querySelector('#id_{{this._id}}').innerHTML += '<svg viewBox="0 0 400 400">' + doc.documentElement.innerHTML + '</svg>';
+                    </script>
+
+                {{/each}}
+            {{else}}
+                <h3 class="noDoodles">No Doodles Yet</h3>
+            {{/if}}
+        </div>
+    </section>
+
+
+
+
+
+
+    <!-- Selected Doodle Modal -->
+    <div id="selected-recipe-modal" class="modal">
+        <!-- Modal Content Container -->
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <!-- Doodle Title -->
+                <h2 id="selected-recipe-name"></h2>
+
+                <!-- Close Button -->
+                <button id="close-button" onclick="document.querySelector('#selected-recipe-modal').style.display = 'none'">Close</button>
+            </div>
+        </div>
     </div>
 
     <!-- Masthead Script -->
     <script src="/assets/src/masthead.js"></script>
+
+<script>
+    showModal = (title) => {
+        const recipeModal = document.querySelector('#selected-recipe-modal');
+        recipeModal.style.display = "flex";
+
+        document.querySelector('#selected-recipe-name').innerHTML = title;
+    };
+</script>
 </body>
 
 </html>
