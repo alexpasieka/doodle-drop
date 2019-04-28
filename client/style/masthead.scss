@@ -1,25 +1,7 @@
 // default values
 $margin: 5vw;
 $backgroundColor: #00A5A8;
-
-// user drop-down menu
-#user-menu {
-  margin-right: $margin;
-  color: black;
-  border: none;
-  background-color: $backgroundColor;
-  outline: none;
-}
-#user-menu:hover {
-  color: white;
-}
-.dropdown-menu {
-  margin-right: $margin;
-
-  .dropdown-item {
-    margin: 0;
-  }
-}
+$navFontSize: 1.5vw;
 
 // masthead
 #masthead {
@@ -40,12 +22,36 @@ $backgroundColor: #00A5A8;
     a {
       margin-right: $margin;
       color: black;
-      font-size: 1.5vw;
+      font-size: $navFontSize;
       text-decoration: none;
     }
     a:hover {
       color: white;
-      text-decoration: none;
+    }
+
+    button {
+      font-size: $navFontSize;
+    }
+
+    #user-menu {
+      margin-right: $margin;
+      color: black;
+      border: none;
+      background-color: $backgroundColor;
+      outline: none;
+    }
+    #user-menu:hover {
+      color: white;
+    }
+    .dropdown-menu {
+      margin-right: $margin;
+
+      .dropdown-item {
+        margin: 0;
+      }
+      .dropdown-item:hover {
+        color: black;
+      }
     }
   }
 }

@@ -1,18 +1,3 @@
-#user-menu {
-  margin-right: 5vw;
-  color: black;
-  border: none;
-  background-color: #00A5A8;
-  outline: none; }
-
-#user-menu:hover {
-  color: white; }
-
-.dropdown-menu {
-  margin-right: 5vw; }
-  .dropdown-menu .dropdown-item {
-    margin: 0; }
-
 #masthead {
   width: 100%;
   height: 10%;
@@ -30,5 +15,20 @@
     font-size: 1.5vw;
     text-decoration: none; }
   #masthead nav a:hover {
-    color: white;
-    text-decoration: none; }
+    color: white; }
+  #masthead nav button {
+    font-size: 1.5vw; }
+  #masthead nav #user-menu {
+    margin-right: 5vw;
+    color: black;
+    border: none;
+    background-color: #00A5A8;
+    outline: none; }
+  #masthead nav #user-menu:hover {
+    color: white; }
+  #masthead nav .dropdown-menu {
+    margin-right: 5vw; }
+    #masthead nav .dropdown-menu .dropdown-item {
+      margin: 0; }
+    #masthead nav .dropdown-menu .dropdown-item:hover {
+      color: black; }

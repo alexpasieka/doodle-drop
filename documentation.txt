@@ -1,28 +1,39 @@
 Alex Pasieka
 Doodle Drop
 
-Doodle Drop is a web application for posting and sharing hand-drawn doodles.
-Users can create an account, post doodles, view all their doodles on their account page,
-and change their password if they want.
+Doodle Drop is a web application for drawing and sharing doodles.
+Users can create an account, draw doodles, view all their doodles on their account page,
+delete unwanted doodles, and change their password if they want.
 Also, regardless of if a user has an account, everyone can view the home page,
-which features all doodles posted by all accounts.
+which features all doodles drawn by all accounts.
 
 In terms of a profit model, as shown by the first post on the home page,
-advertisements could be placed where posts would normally be.
+advertisements could be placed where posts would normally be and link to advertisers' websites.
 
-I used Handlebars for a templating language. It is mostly used for populating both
-the home page and a user's account page with respective doodles.
+I used React mainly for creating components for all the forms throughout the website.
+It helped to keep the functionality of the forms organized. I also used it for components
+shared across multiple pages like the masthead.
 
 I built this app using the MVC architecture by writing controllers that grabbed data
 from the needed models stored within mongoDB using mongoose and passing that data into
-views defined in a separate folder.
+views defined in a separate folder. All of this was routed together using the Express framework.
 
-Specifically, mongoDB stored not only all of the doodles (including each doodle's information),
-but also all of the users' account data (including username and password).
+Specifically, I stored account usernames and passwords in Mongo. When it came to the doodles,
+they are actually strings of SVG data stored in Mongo that get parsed back and forth.
 
-For above and beyond, I did mix in a bit of React for a few dynamic pages, mainly on the login/signup
-page and the upload page. For some help with styling, I utilized Bootstrap.
+I used Handlebars for a templating language. It is mostly used for populating both
+the home page and a user's account page with respective doodles. It is also used as way
+to detect if a user is logged and change the masthead based on that information.
 
-By the end, I was running out of time, so there are parts of my code that are not as organized and
-commented as other parts. I hope I made up for that with the actual look and functionality of the
-application.
+For new features/above and beyond, I added the ability for users to draw doodles within
+the actual website using canvas and converting into SVG. Users can also delete doodles.
+I did a lot more to properly style the website, utilizing Bootstrap and Sass.
+To help with the development process, I used Gulp to make my commands more manageable.
+As mentioned before, I made the masthead navigation reactive based on if a user is logged in.
+Plus, for feedback, I added alerts to tell the user when they have made a mistake in a form.
+Other than all those things, I just took a lot of time to polish all of my code and make sure
+it was as organized as I could make it.
+
+Borrowed Code:
+ - CSS Reset: http://meyerweb.com/eric/tools/css/reset/
+ - Canvas2SVG: https://github.com/gliffy/canvas2svg
