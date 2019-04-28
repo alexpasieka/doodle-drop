@@ -13,35 +13,34 @@
       margin-bottom: 1vw; }
       .form-container form .input-container input {
         width: 60%;
-        margin: 0;
-        margin-left: 1%;
-        padding: 0.5vw;
+        margin-left: 1vw;
+        padding: 1vw;
         border: none;
-        border-radius: 0.5vw; }
+        border-radius: 4px; }
     .form-container form .submit-container {
       width: 100%;
       text-align: left;
-      margin-top: 2%;
+      margin-top: 1vw;
       font-size: 1.5vw; }
       .form-container form .submit-container input {
         margin-left: 40%;
         padding: 1vw;
         border: none;
-        border-radius: 0.5vw;
+        border-radius: 4px;
         background-color: #00A5A8; }
       .form-container form .submit-container input:hover {
         color: white;
         background-color: #00D2D6; }
     .form-container form .form-switch {
       width: 100%;
+      margin-top: 1vw;
       text-align: center;
-      margin-top: 5%;
       font-size: 1.5vw; }
       .form-container form .form-switch button {
-        margin-left: 3%;
+        margin-left: 1vw;
         padding: 1vw;
         border: none;
-        border-radius: 0.5vw;
+        border-radius: 4px;
         background-color: #00A5A8; }
       .form-container form .form-switch button:hover {
         color: white;
@@ -52,7 +51,7 @@
   #post-doodle input {
     padding: 1vw;
     border: none;
-    border-radius: 0.5vw;
+    border-radius: 4px;
     background-color: #00A5A8; }
   #post-doodle input:hover {
     color: white;
@@ -60,12 +59,12 @@
 
 #delete-doodle {
   width: 100%;
-  margin-bottom: 5%; }
+  margin-bottom: 1vw; }
   #delete-doodle input {
     width: 100%;
-    padding: 3%;
+    padding: 1vw;
     border: none;
-    border-radius: 3px;
+    border-radius: 4px;
     background-color: #F2A72E; }
   #delete-doodle input:hover {
     color: white;

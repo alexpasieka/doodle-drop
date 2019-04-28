@@ -78,7 +78,7 @@ const signUp = (request, response) => {
       }
 
 			// handle any other errors
-      return res.status(400).json({ error: 'An error occurred' });
+      return res.status(400).json({ error: 'An error occurred.' });
     });
   });
 };

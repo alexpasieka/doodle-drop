@@ -1,56 +1,51 @@
+// default values
+$margin: 5vw;
+$backgroundColor: #00A5A8;
+
+// user drop-down menu
 #user-menu {
-  border: none;
+  margin-right: $margin;
   color: black;
-  background-color: #00A5A8;
+  border: none;
+  background-color: $backgroundColor;
   outline: none;
-  margin-right: 5vh;
 }
 #user-menu:hover {
   color: white;
 }
-
 .dropdown-menu {
-  margin-right: 5vh;
-}
-.dropdown-item {
-  margin: 0;
+  margin-right: $margin;
+
+  .dropdown-item {
+    margin: 0;
+  }
 }
 
-/* MASTHEAD */
-/* Masthead Container */
+// masthead
 #masthead {
-  height: 10%;
   width: 100%;
+  height: 10%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #00A5A8;
-}
-/* Masthead Title */
-#title {
-  color: white;
-  margin-left: 5vh;
-  font-size: 6vh;
-}
+  background-color: $backgroundColor;
 
+  #title {
+    margin-left: $margin;
+    color: white;
+    font-size: 3.5vw;
+  }
 
-/* Log In/Sign Up Button */
-nav a {
-  font-size: 2.5vh;
-  color: #002323;
-  text-decoration: none;
-  margin-right: 5vh;
-}
-nav a:hover {
-  color: white;
-  text-decoration: none;
-}
-
-a {
-  color: white;
-  text-decoration: none;
-}
-a:hover {
-  color: white;
-  text-decoration: none;
+  nav {
+    a {
+      margin-right: $margin;
+      color: black;
+      font-size: 1.5vw;
+      text-decoration: none;
+    }
+    a:hover {
+      color: white;
+      text-decoration: none;
+    }
+  }
 }

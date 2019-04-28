@@ -1,3 +1,20 @@
+// button colors
+$buttonColor: #00A5A8;
+$buttonHighlight: #00D2D6;
+
+// delete button colors
+$deleteColor: #F2A72E;
+$deleteHighlight: #FFC05B;
+
+// input border radius
+$borderRadius: 4px;
+
+// font size
+$fontSize: 1.5vw;
+
+// margin and padding
+$marginPadding: 1vw;
+
 // log in/sign up/change password forms
 .form-container {
   width: 100%;
@@ -9,57 +26,59 @@
   form {
     width: 50%;
 
+    // inputs
     .input-container {
       width: 100%;
       text-align: right;
-      font-size: 1.5vw;
-      margin-bottom: 1vw;
+      font-size: $fontSize;
+      margin-bottom: $marginPadding;
 
       input {
         width: 60%;
-        margin: 0;
-        margin-left: 1%;
-        padding: 0.5vw;
+        margin-left: $marginPadding;
+        padding: $marginPadding;
         border: none;
-        border-radius: 0.5vw;
+        border-radius: $borderRadius;
       }
     }
 
+    // submit button
     .submit-container {
       width: 100%;
       text-align: left;
-      margin-top: 2%;
-      font-size: 1.5vw;
+      margin-top: $marginPadding;
+      font-size: $fontSize;
 
       input {
         margin-left: 40%;
-        padding: 1vw;
+        padding: $marginPadding;
         border: none;
-        border-radius: 0.5vw;
-        background-color: #00A5A8;
+        border-radius: $borderRadius;
+        background-color: $buttonColor;
       }
       input:hover {
         color: white;
-        background-color: #00D2D6;
+        background-color: $buttonHighlight;
       }
     }
 
+    // button to switch between log in and sign up forms
     .form-switch {
       width: 100%;
+      margin-top: $marginPadding;
       text-align: center;
-      margin-top: 5%;
-      font-size: 1.5vw;
+      font-size: $fontSize;
 
       button {
-        margin-left: 3%;
-        padding: 1vw;
+        margin-left: $marginPadding;
+        padding: $marginPadding;
         border: none;
-        border-radius: 0.5vw;
-        background-color: #00A5A8;
+        border-radius: $borderRadius;
+        background-color: $buttonColor;
       }
       button:hover {
         color: white;
-        background-color: #00D2D6;
+        background-color: $buttonHighlight;
       }
     }
   }
@@ -70,31 +89,31 @@
   text-align: center;
 
   input {
-    padding: 1vw;
+    padding: $marginPadding;
     border: none;
-    border-radius: 0.5vw;
-    background-color: #00A5A8;
+    border-radius: $borderRadius;
+    background-color: $buttonColor;
   }
   input:hover {
     color: white;
-    background-color: #00D2D6;
+    background-color: $buttonHighlight;
   }
 }
 
 // delete doodle form
 #delete-doodle {
   width: 100%;
-  margin-bottom: 5%;
+  margin-bottom: $marginPadding;
 
   input {
     width: 100%;
-    padding: 3%;
+    padding: $marginPadding;
     border: none;
-    border-radius: 3px;
-    background-color: #F2A72E;
+    border-radius: $borderRadius;
+    background-color: $deleteColor;
   }
   input:hover {
     color: white;
-    background-color: #FFC05B;
+    background-color: $deleteHighlight;
   }
 }

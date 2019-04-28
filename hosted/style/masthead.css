@@ -1,50 +1,34 @@
 #user-menu {
-  border: none;
+  margin-right: 5vw;
   color: black;
+  border: none;
   background-color: #00A5A8;
-  outline: none;
-  margin-right: 5vh; }
+  outline: none; }
 
 #user-menu:hover {
   color: white; }
 
 .dropdown-menu {
-  margin-right: 5vh; }
+  margin-right: 5vw; }
+  .dropdown-menu .dropdown-item {
+    margin: 0; }
 
-.dropdown-item {
-  margin: 0; }
-
-/* MASTHEAD */
-/* Masthead Container */
 #masthead {
-  height: 10%;
   width: 100%;
+  height: 10%;
   display: flex;
   align-items: center;
   justify-content: space-between;
   background-color: #00A5A8; }
-
-/* Masthead Title */
-#title {
-  color: white;
-  margin-left: 5vh;
-  font-size: 6vh; }
-
-/* Log In/Sign Up Button */
-nav a {
-  font-size: 2.5vh;
-  color: #002323;
-  text-decoration: none;
-  margin-right: 5vh; }
-
-nav a:hover {
-  color: white;
-  text-decoration: none; }
-
-a {
-  color: white;
-  text-decoration: none; }
-
-a:hover {
-  color: white;
-  text-decoration: none; }
+  #masthead #title {
+    margin-left: 5vw;
+    color: white;
+    font-size: 3.5vw; }
+  #masthead nav a {
+    margin-right: 5vw;
+    color: black;
+    font-size: 1.5vw;
+    text-decoration: none; }
+  #masthead nav a:hover {
+    color: white;
+    text-decoration: none; }
