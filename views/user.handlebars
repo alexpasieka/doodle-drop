@@ -45,7 +45,7 @@
 
     <script>
         // DOMParser variables
-        let parser;
+        let parser = new DOMParser();
         let doc;
         let image;
 
@@ -73,12 +73,10 @@
                 </div>
 
                 <script>
-                    // decode HTML entities from stored image string twice (for odd reasons)
+                    // decode HTML entities from stored image string
                     image = decodeEntities('{{this.image}}');
-                    image = decodeEntities(image);
 
                     // encode SVG from stored image string
-                    parser = new DOMParser();
                     doc = parser.parseFromString(image, 'image/svg+xml');
                     document.querySelector('#id_{{this._id}}').innerHTML +=
                             '<svg viewBox="0 0 400 400">' + doc.documentElement.innerHTML + '</svg>';

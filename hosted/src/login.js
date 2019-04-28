@@ -1,10 +1,35 @@
 "use strict";
 
+// redirect after successful AJAX
 var redirect = function redirect(response) {
 	window.location = response.redirect;
 };
 
-// define login React element
+// alert user of error
+var error = function error(response) {
+	alert(JSON.parse(response.responseText).error);
+};
+
+// handle provided login information
+var handleLogin = function handleLogin(e) {
+	// prevent page reload
+	e.preventDefault();
+
+	console.log("hello");
+
+	// send AJAX
+	$.ajax({
+		cache: false,
+		type: 'POST',
+		url: $("#loginForm").attr("action"),
+		data: $("#loginForm").serialize(),
+		dataType: "json",
+		success: redirect,
+		error: error
+	});
+};
+
+// login window React component
 var LoginWindow = function LoginWindow() {
 	return React.createElement(
 		"form",
@@ -50,25 +75,24 @@ var LoginWindow = function LoginWindow() {
 	);
 };
 
-// handle provided login information
-var handleLogin = function handleLogin(e) {
-	// don't automatically refresh the page
+// handle provided signup information
+var handleSignup = function handleSignup(e) {
+	// prevent page reload
 	e.preventDefault();
 
-	// send AJAX over jQuery function
+	// send AJAX
 	$.ajax({
 		cache: false,
 		type: 'POST',
-		url: $("#loginForm").attr("action"),
-		data: $("#loginForm").serialize(),
+		url: $("#signupForm").attr("action"),
+		data: $("#signupForm").serialize(),
 		dataType: "json",
-		success: redirect
+		success: redirect,
+		error: error
 	});
-
-	//return false;
 };
 
-// define signup React element
+// signup window React component
 var SignupWindow = function SignupWindow() {
 	return React.createElement(
 		"form",
@@ -124,28 +148,12 @@ var SignupWindow = function SignupWindow() {
 	);
 };
 
-var handleSignup = function handleSignup(e) {
-	e.preventDefault();
-
-	// send AJAX over jQuery function
-	$.ajax({
-		cache: false,
-		type: 'POST',
-		url: $("#signupForm").attr("action"),
-		data: $("#signupForm").serialize(),
-		dataType: "json",
-		success: redirect
-	});
-
-	//return false;
-};
-
-// render React login element to document
+// render React login component to document
 var createLoginWindow = function createLoginWindow() {
 	ReactDOM.render(React.createElement(LoginWindow, null), document.querySelector(".form-container"));
 };
 
-// render React signup element to document
+// render React signup component to document
 var createSignupWindow = function createSignupWindow() {
 	ReactDOM.render(React.createElement(SignupWindow, null), document.querySelector(".form-container"));
 };

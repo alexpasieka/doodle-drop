@@ -9,7 +9,7 @@ const loginPage = (req, res) => {
   res.render('login');
 };
 
-// user log in
+// user login
 const login = (request, response) => {
   const req = request;
   const res = response;
@@ -34,7 +34,7 @@ const login = (request, response) => {
   });
 };
 
-// user sign up
+// user signup
 const signup = (request, response) => {
   const req = request;
   const res = response;
@@ -98,19 +98,17 @@ const changePasswordPage = (req, res) => {
 
 // change user password
 const changePassword = (request, response) => {
-  const req = request;
-  const res = response;
+	const req = request;
+	const res = response;
 
 	// make sure all fields are filled out
-  if (!req.body.newPassword || !req.body.newPassword2) {
-		return res.render('change-password', { loggedIn: true, username: request.session.account.username,
-      message: 'All fields are required.' });
-  }
+	if (!req.body.newPassword || !req.body.newPassword2) {
+		return res.status(400).json({ error: 'All fields are required.' });
+	}
 
 	// make sure both passwords match
   if (req.body.newPassword !== req.body.newPassword2) {
-		return res.render('change-password', { loggedIn: true, username: request.session.account.username,
-      message: 'Passwords do not match.' });
+		return res.status(400).json({ error: 'Passwords do not match.' });
   }
 
 	// generate hash for user's new password
@@ -123,7 +121,7 @@ const changePassword = (request, response) => {
       });
 
     // redirect to user page once password changed
-    updatePromise.then(res.redirect('/user'));
+    updatePromise.then(res.json({ redirect: '/user' }));
   });
 };
 

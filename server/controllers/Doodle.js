@@ -13,7 +13,8 @@ const isLoggedIn = (req) => {
   if (req.session.account !== undefined) {
     loggedIn = true;
     username = req.session.account.username;
-  } else {
+  }
+  else {
   	loggedIn = false;
   	username = '';
   }

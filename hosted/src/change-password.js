@@ -1,5 +1,15 @@
 "use strict";
 
+// redirect after successful AJAX
+var redirect = function redirect(response) {
+	window.location = response.redirect;
+};
+
+// alert user of error
+var error = function error(response) {
+	alert(JSON.parse(response.responseText).error);
+};
+
 // handle password change
 var handleChangePassword = function handleChangePassword(e) {
 	// prevent page reload
@@ -12,7 +22,8 @@ var handleChangePassword = function handleChangePassword(e) {
 		url: $("#change-password-form").attr("action"),
 		data: $("#change-password-form").serialize(),
 		dataType: "json",
-		success: window.location = '/user'
+		success: redirect,
+		error: error
 	});
 };
 
@@ -23,7 +34,7 @@ var ChangePasswordForm = function ChangePasswordForm() {
 		{ id: "change-password-form",
 			action: "/change-password",
 			method: "POST",
-			onsubmit: handleChangePassword },
+			onSubmit: handleChangePassword },
 		React.createElement(
 			"div",
 			{ className: "input-container" },

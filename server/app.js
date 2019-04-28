@@ -5,11 +5,9 @@ const mongoose = require('mongoose');
 const express = require('express');
 const handlebars = require('express-handlebars');
 const favicon = require('serve-favicon');
-const compression = require('compression');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const Redis = require('connect-redis')(session);
-const cookieParser = require('cookie-parser');
 
 // connect to MongoDB using mongoose
 const dbURL = process.env.MONGODB_URI || 'mongodb://localhost/doodle-drop';
@@ -35,10 +33,8 @@ const app = express();
 app.engine('handlebars', handlebars());
 app.set('view engine', 'handlebars');
 app.set('views', `${__dirname}/../views`);
-app.disable('x-powered-by');
 app.use('/assets', express.static(path.resolve(`${__dirname}/../hosted/`)));
 app.use(favicon(`${__dirname}/../hosted/img/favicon.png`));
-app.use(compression());
 app.use(bodyParser.urlencoded({
   extended: true,
 }));
@@ -56,7 +52,6 @@ app.use(session({
     httpOnly: true,
   },
 }));
-app.use(cookieParser());
 
 // utilize router
 const router = require('./router.js');

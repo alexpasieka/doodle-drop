@@ -1,3 +1,13 @@
+// redirect after successful AJAX
+const redirect = (response) => {
+	window.location = response.redirect;
+};
+
+// alert user of error
+const error = (response) => {
+	alert(JSON.parse(response.responseText).error);
+};
+
 // handle password change
 const handleChangePassword = (e) => {
 	// prevent page reload
@@ -10,7 +20,8 @@ const handleChangePassword = (e) => {
 		url: $("#change-password-form").attr("action"),
 		data: $("#change-password-form").serialize(),
 		dataType: "json",
-		success: window.location = '/user',
+		success: redirect,
+		error: error
 	});
 };
 
@@ -20,7 +31,7 @@ const ChangePasswordForm = () => {
 		<form id="change-password-form"
 					action="/change-password"
 					method="POST"
-					onsubmit={handleChangePassword}>
+					onSubmit={handleChangePassword}>
 
 			<div className="input-container">
 				<label htmlFor="newPassword">New Password: </label>

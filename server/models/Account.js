@@ -47,9 +47,11 @@ AccountSchema.statics.toAPI = doc => ({
 
 // generate hash for salt
 AccountSchema.statics.generateHash = (password, callback) => {
+  // generate random salt
   const salt = crypto.randomBytes(saltLength);
 
-  crypto.pbkdf2(password, salt, iterations, keyLength, 'RSA-SHA512', (err, hash) =>
+  // encrypt password
+  return crypto.pbkdf2(password, salt, iterations, keyLength, 'RSA-SHA512', (err, hash) =>
     callback(salt, hash.toString('hex'))
   );
 };
@@ -67,6 +69,7 @@ AccountSchema.statics.findByUsername = (name, callback) => {
 const validatePassword = (doc, password, callback) => {
   const pass = doc.password;
 
+  // compare given password to database password salt hash
   return crypto.pbkdf2(password, doc.salt, iterations, keyLength, 'RSA-SHA512', (err, hash) => {
     if (hash.toString('hex') !== pass) {
       return callback(false);
@@ -79,14 +82,17 @@ const validatePassword = (doc, password, callback) => {
 // authenticate user by given username and password
 AccountSchema.statics.authenticate = (username, password, callback) =>
 AccountModel.findByUsername(username, (err, doc) => {
+  // error check
   if (err) {
     return callback(err);
   }
 
+  // user not found
   if (!doc) {
     return callback();
   }
 
+  // check if password is correct
   return validatePassword(doc, password, (result) => {
     if (result === true) {
       return callback(null, doc);

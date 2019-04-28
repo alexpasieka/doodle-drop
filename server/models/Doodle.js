@@ -1,6 +1,5 @@
 // import libraries
 const mongoose = require('mongoose');
-const _ = require('underscore');
 
 // initialize database promise
 mongoose.Promise = global.Promise;
@@ -11,16 +10,11 @@ let DoodleModel = {};
 // convert string ID to real MongoDB ID
 const convertId = mongoose.Types.ObjectId;
 
-// escape and trim all data strings
-const setString = (string) => _.escape(string).trim();
-
 // define model schema
 const DoodleSchema = new mongoose.Schema({
   image: {
     type: String,
     required: true,
-    trim: true,
-    set: setString,
   },
 
   owner: {
@@ -33,11 +27,6 @@ const DoodleSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-});
-
-// post new doodle to API
-DoodleSchema.statics.toAPI = (doc) => ({
-  image: doc.image,
 });
 
 // find doodles by user

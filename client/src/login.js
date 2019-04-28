@@ -1,8 +1,33 @@
+// redirect after successful AJAX
 const redirect = (response) => {
 	window.location = response.redirect;
 };
 
-// define login React element
+// alert user of error
+const error = (response) => {
+	alert(JSON.parse(response.responseText).error);
+};
+
+// handle provided login information
+const handleLogin = (e) => {
+	// prevent page reload
+	e.preventDefault();
+
+	console.log("hello");
+
+	// send AJAX
+	$.ajax({
+		cache: false,
+		type: 'POST',
+		url: $("#loginForm").attr("action"),
+		data: $("#loginForm").serialize(),
+		dataType: "json",
+		success: redirect,
+		error: error
+	});
+};
+
+// login window React component
 const LoginWindow = () => {
 	return (
 		<form id="loginForm"
@@ -30,25 +55,24 @@ const LoginWindow = () => {
 	);
 };
 
-// handle provided login information
-const handleLogin = (e) => {
-	// don't automatically refresh the page
+// handle provided signup information
+const handleSignup = (e) => {
+	// prevent page reload
 	e.preventDefault();
 
-	// send AJAX over jQuery function
+	// send AJAX
 	$.ajax({
 		cache: false,
 		type: 'POST',
-		url: $("#loginForm").attr("action"),
-		data: $("#loginForm").serialize(),
+		url: $("#signupForm").attr("action"),
+		data: $("#signupForm").serialize(),
 		dataType: "json",
 		success: redirect,
+		error: error
 	});
-
-	//return false;
 };
 
-// define signup React element
+// signup window React component
 const SignupWindow = () => {
 	return (
 		<form id="signupForm"
@@ -81,23 +105,7 @@ const SignupWindow = () => {
 	);
 };
 
-const handleSignup = (e) => {
-	e.preventDefault();
-
-	// send AJAX over jQuery function
-	$.ajax({
-		cache: false,
-		type: 'POST',
-		url: $("#signupForm").attr("action"),
-		data: $("#signupForm").serialize(),
-		dataType: "json",
-		success: redirect,
-	});
-
-	//return false;
-};
-
-// render React login element to document
+// render React login component to document
 const createLoginWindow = () => {
 	ReactDOM.render(
 		<LoginWindow/>,
@@ -105,7 +113,7 @@ const createLoginWindow = () => {
 	);
 };
 
-// render React signup element to document
+// render React signup component to document
 const createSignupWindow = () => {
 	ReactDOM.render(
 		<SignupWindow/>,
