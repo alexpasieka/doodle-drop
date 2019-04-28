@@ -51,14 +51,18 @@ var LogInWindow = function LogInWindow() {
 			React.createElement("input", { type: "submit", value: "Log In" })
 		),
 		React.createElement(
-			"label",
-			{ htmlFor: "signUpButton" },
-			"Don't have an account yet?"
-		),
-		React.createElement(
-			"button",
-			{ name: "signUpButton", id: "signUpButton", onClick: createSignUpWindow },
-			"Sign Up"
+			"div",
+			{ className: "form-switch" },
+			React.createElement(
+				"label",
+				{ htmlFor: "signUpButton" },
+				"Don't have an account yet?"
+			),
+			React.createElement(
+				"button",
+				{ name: "signUpButton", id: "signUpButton", onClick: createSignUpWindow },
+				"Sign Up"
+			)
 		)
 	);
 };
@@ -124,14 +128,18 @@ var SignUpWindow = function SignUpWindow() {
 			React.createElement("input", { type: "submit", value: "Sign up" })
 		),
 		React.createElement(
-			"label",
-			{ htmlFor: "logInButton" },
-			"Already have an account?"
-		),
-		React.createElement(
-			"button",
-			{ name: "logInButton", id: "logInButton", onClick: createLogInWindow },
-			"Log In"
+			"div",
+			{ className: "form-switch" },
+			React.createElement(
+				"label",
+				{ htmlFor: "logInButton" },
+				"Already have an account?"
+			),
+			React.createElement(
+				"button",
+				{ name: "logInButton", id: "logInButton", onClick: createLogInWindow },
+				"Log In"
+			)
 		)
 	);
 };

@@ -37,8 +37,10 @@ const LogInWindow = () => {
 				<input type="submit" value="Log In"/>
 			</div>
 
-			<label htmlFor="signUpButton">Don't have an account yet?</label>
-			<button name="signUpButton" id="signUpButton" onClick={createSignUpWindow}>Sign Up</button>
+			<div className="form-switch">
+				<label htmlFor="signUpButton">Don't have an account yet?</label>
+				<button name="signUpButton" id="signUpButton" onClick={createSignUpWindow}>Sign Up</button>
+			</div>
 		</form>
 	);
 };
@@ -87,8 +89,10 @@ const SignUpWindow = () => {
 				<input type="submit" value="Sign up"/>
 			</div>
 
-			<label htmlFor="logInButton">Already have an account?</label>
-			<button name="logInButton" id="logInButton" onClick={createLogInWindow}>Log In</button>
+			<div className="form-switch">
+				<label htmlFor="logInButton">Already have an account?</label>
+				<button name="logInButton" id="logInButton" onClick={createLogInWindow}>Log In</button>
+			</div>
 		</form>
 	);
 };

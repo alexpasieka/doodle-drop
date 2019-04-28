@@ -84,7 +84,8 @@ const signUp = (request, response) => {
 };
 
 // display change password page
-const changePasswordPage = (req, res) => res.render('change-password', { loggedIn: true, username: req.session.account.username });
+const changePasswordPage = (req, res) => res.render('change-password',
+  { loggedIn: true, username: req.session.account.username });
 
 // change user password
 const changePassword = (request, response) => {

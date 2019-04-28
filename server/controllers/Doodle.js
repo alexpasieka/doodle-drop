@@ -32,14 +32,15 @@ const userPage = (req, res) => {
     }
 
 		// pass username over to the view
-    return res.render('user', { doodles: docs, loggedIn: true, username: req.session.account.username });
+    return res.render('user',
+      { doodles: docs, loggedIn: true, username: req.session.account.username });
   });
 };
 
 // display page for drawing new doodles
 const drawPage = (req, res) =>
 	// pass username over to the view
-	 res.render('draw', { loggedIn: true, username: req.session.account.username });
+  res.render('draw', { loggedIn: true, username: req.session.account.username });
 
 // post new doodle
 const postDoodle = (req, res) => {
