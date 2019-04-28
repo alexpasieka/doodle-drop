@@ -5,12 +5,12 @@ const models = require('../models');
 const Account = models.Account;
 
 // display log in/sign up page
-const loginPage = (req, res) => {
+const logInPage = (req, res) => {
   res.render('login');
 };
 
-// user login
-const login = (request, response) => {
+// user log in
+const logIn = (request, response) => {
   const req = request;
   const res = response;
 
@@ -34,8 +34,8 @@ const login = (request, response) => {
   });
 };
 
-// user signup
-const signup = (request, response) => {
+// user sign up
+const signUp = (request, response) => {
   const req = request;
   const res = response;
 
@@ -84,31 +84,21 @@ const signup = (request, response) => {
 };
 
 // display change password page
-const changePasswordPage = (req, res) => {
-	// if the user is logged in, pass their username over to the view
-  let loggedIn = false;
-  let username = '';
-  if (req.session.account !== undefined) {
-    loggedIn = true;
-    username = req.session.account.username;
-  }
-
-  return res.render('change-password', { loggedIn, username });
-};
+const changePasswordPage = (req, res) => res.render('change-password', { loggedIn: true, username: req.session.account.username });
 
 // change user password
 const changePassword = (request, response) => {
-	const req = request;
-	const res = response;
+  const req = request;
+  const res = response;
 
 	// make sure all fields are filled out
-	if (!req.body.newPassword || !req.body.newPassword2) {
-		return res.status(400).json({ error: 'All fields are required.' });
-	}
+  if (!req.body.newPassword || !req.body.newPassword2) {
+    return res.status(400).json({ error: 'All fields are required.' });
+  }
 
 	// make sure both passwords match
   if (req.body.newPassword !== req.body.newPassword2) {
-		return res.status(400).json({ error: 'Passwords do not match.' });
+    return res.status(400).json({ error: 'Passwords do not match.' });
   }
 
 	// generate hash for user's new password
@@ -126,17 +116,17 @@ const changePassword = (request, response) => {
 };
 
 // when user logs out, end the active session and redirect back to home page
-const logout = (req, res) => {
+const logOut = (req, res) => {
   req.session.destroy();
   res.redirect('/');
 };
 
 // module exports
 module.exports = {
-  loginPage,
-  login,
-  signup,
+  logInPage,
+  logIn,
+  signUp,
   changePasswordPage,
   changePassword,
-  logout,
+  logOut,
 };

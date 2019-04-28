@@ -4,22 +4,6 @@ const models = require('../models');
 // reference doodle model
 const Doodle = models.Doodle;
 
-// logged in variables
-let loggedIn = false;
-let username = '';
-
-// check if the user is logged in
-const isLoggedIn = (req) => {
-  if (req.session.account !== undefined) {
-    loggedIn = true;
-    username = req.session.account.username;
-  }
-  else {
-  	loggedIn = false;
-  	username = '';
-  }
-};
-
 // get all posted doodles and display them on home page
 const homePage = (req, res) => {
   Doodle.DoodleModel.findAll((err, docs) => {
@@ -29,7 +13,12 @@ const homePage = (req, res) => {
     }
 
 		// if the user is logged in, pass their username over to the view
-    isLoggedIn(req);
+    let loggedIn = false;
+    let username = '';
+    if (req.session.account !== undefined) {
+      loggedIn = true;
+      username = req.session.account.username;
+    }
     return res.render('home', { doodles: docs, loggedIn, username });
   });
 };
@@ -42,18 +31,15 @@ const userPage = (req, res) => {
       return res.status(400).json({ error: 'An error occurred.' });
     }
 
-		// if the user is logged in, pass their username over to the view
-    isLoggedIn(req);
-    return res.render('user', { doodles: docs, loggedIn, username });
+		// pass username over to the view
+    return res.render('user', { doodles: docs, loggedIn: true, username: req.session.account.username });
   });
 };
 
 // display page for drawing new doodles
-const drawPage = (req, res) => {
-	// if the user is logged in, pass their username over to the view
-  isLoggedIn(req);
-  return res.render('draw', { loggedIn, username });
-};
+const drawPage = (req, res) =>
+	// pass username over to the view
+	 res.render('draw', { loggedIn: true, username: req.session.account.username });
 
 // post new doodle
 const postDoodle = (req, res) => {

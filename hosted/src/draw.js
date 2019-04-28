@@ -7,11 +7,13 @@ var handleDoodle = function handleDoodle(e) {
 
 	// send AJAX
 	$.ajax({
-		type: $('#doodleForm').attr('method'),
-		url: $('#doodleForm').attr('action'),
-		data: $('#doodleForm').serialize(),
+		cache: false,
+		type: 'POST',
+		url: $('#doodle-form').attr('action'),
+		data: $('#doodle-form').serialize(),
 		dataType: 'json',
-		success: window.location = '/user'
+		success: redirect,
+		error: error
 	});
 };
 
@@ -19,7 +21,7 @@ var handleDoodle = function handleDoodle(e) {
 var DoodleForm = function DoodleForm() {
 	return React.createElement(
 		'form',
-		{ id: 'doodleForm',
+		{ id: 'doodle-form',
 			action: '/draw',
 			method: 'POST',
 			onSubmit: handleDoodle },
@@ -65,6 +67,7 @@ var setup = function setup() {
 	var mouseDown = function mouseDown(e) {
 		dragging = true;
 
+		// start line
 		var mousePosition = getMousePosition(e);
 		ctx.beginPath();
 		ctx.moveTo(mousePosition.x, mousePosition.y);
@@ -76,6 +79,7 @@ var setup = function setup() {
 	var mouseMove = function mouseMove(e) {
 		if (!dragging) return;
 
+		// draw line
 		var mousePosition = getMousePosition(e);
 		ctx.lineTo(mousePosition.x, mousePosition.y);
 		ctx.stroke();
@@ -85,16 +89,19 @@ var setup = function setup() {
 
 	// mouse stops drawing
 	var mouseUp = function mouseUp() {
+		// end line
 		ctx.closePath();
 		c2s.closePath();
 		dragging = false;
 
+		// convert canvas to SVG string
 		var mySerializedSVG = c2s.getSerializedSvg().toString();
 		document.querySelector("form").querySelector("input[name='image']").value = mySerializedSVG;
 	};
 
 	// mouse draws off of canvas
 	var mouseOut = function mouseOut() {
+		// end line
 		ctx.closePath();
 		c2s.closePath();
 		dragging = false;

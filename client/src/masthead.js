@@ -14,7 +14,7 @@ const Masthead = (props) => {
 							<a className="dropdown-item" href="/draw">Draw New Doodle</a>
 							<a className="dropdown-item" href="/user">My Doodles</a>
 							<a className="dropdown-item" href="/change-password">Change Password</a>
-							<a className="dropdown-item" href="/logout">Logout</a>
+							<a className="dropdown-item" href="/log-out">Log Out</a>
 						</div>
 					</nav>
 				</React.Fragment>
@@ -34,7 +34,7 @@ const Masthead = (props) => {
 							<a className="dropdown-item" href="/draw">Draw New Doodle</a>
 							<a className="dropdown-item" href="/user">My Doodles</a>
 							<a className="dropdown-item" href="/change-password">Change Password</a>
-							<a className="dropdown-item" href="/logout">Logout</a>
+							<a className="dropdown-item" href="/log-out">Log Out</a>
 						</div>
 					</nav>
 				</React.Fragment>
@@ -50,13 +50,13 @@ const Masthead = (props) => {
 					<h1 id="title">Doodle Drop</h1>
 
 					<nav>
-						<a href="/login">Log In/Sign Up</a>
+						<a href="/log-in">Log In/Sign Up</a>
 					</nav>
 				</React.Fragment>
 			);
 		}
-		// if on the login page
-		else if (window.location.pathname == '/login') {
+		// if on the log in page
+		else if (window.location.pathname == '/log-in') {
 			return (
 				<React.Fragment>
 				<h1 id="title">Doodle Drop</h1>

@@ -1,39 +1,27 @@
-// redirect after successful AJAX
-const redirect = (response) => {
-	window.location = response.redirect;
-};
-
-// alert user of error
-const error = (response) => {
-	alert(JSON.parse(response.responseText).error);
-};
-
-// handle provided login information
-const handleLogin = (e) => {
+// handle provided log in information
+const handleLogIn = (e) => {
 	// prevent page reload
 	e.preventDefault();
-
-	console.log("hello");
 
 	// send AJAX
 	$.ajax({
 		cache: false,
 		type: 'POST',
-		url: $("#loginForm").attr("action"),
-		data: $("#loginForm").serialize(),
+		url: $("#log-in-form").attr("action"),
+		data: $("#log-in-form").serialize(),
 		dataType: "json",
 		success: redirect,
 		error: error
 	});
 };
 
-// login window React component
-const LoginWindow = () => {
+// log in window React component
+const LogInWindow = () => {
 	return (
-		<form id="loginForm"
-					action="/login"
+		<form id="log-in-form"
+					action="/log-in"
 					method="POST"
-					onSubmit={handleLogin}>
+					onSubmit={handleLogIn}>
 
 			<div className="input-container">
 				<label htmlFor="username">Username: </label>
@@ -46,17 +34,17 @@ const LoginWindow = () => {
 			</div>
 
 			<div className="submit-container">
-				<input type="submit" value="Sign In"/>
+				<input type="submit" value="Log In"/>
 			</div>
 
-			<label htmlFor="signupButton">Don't have an account yet?</label>
-			<button name="signupButton" id="signupButton" onClick={createSignupWindow}>Sign Up</button>
+			<label htmlFor="signUpButton">Don't have an account yet?</label>
+			<button name="signUpButton" id="signUpButton" onClick={createSignUpWindow}>Sign Up</button>
 		</form>
 	);
 };
 
-// handle provided signup information
-const handleSignup = (e) => {
+// handle provided sign up information
+const handleSignUp = (e) => {
 	// prevent page reload
 	e.preventDefault();
 
@@ -64,21 +52,21 @@ const handleSignup = (e) => {
 	$.ajax({
 		cache: false,
 		type: 'POST',
-		url: $("#signupForm").attr("action"),
-		data: $("#signupForm").serialize(),
+		url: $("#sign-up-form").attr("action"),
+		data: $("#sign-up-form").serialize(),
 		dataType: "json",
 		success: redirect,
 		error: error
 	});
 };
 
-// signup window React component
-const SignupWindow = () => {
+// sign up window React component
+const SignUpWindow = () => {
 	return (
-		<form id="signupForm"
-					action="/signup"
+		<form id="sign-up-form"
+					action="/sign-up"
 					method="POST"
-					onSubmit={handleSignup}>
+					onSubmit={handleSignUp}>
 
 			<div className="input-container">
 				<label htmlFor="username">Username: </label>
@@ -99,27 +87,27 @@ const SignupWindow = () => {
 				<input type="submit" value="Sign up"/>
 			</div>
 
-			<label htmlFor="loginButton">Already have an account?</label>
-			<button name="loginButton" id="loginButton" onClick={createLoginWindow}>Log In</button>
+			<label htmlFor="logInButton">Already have an account?</label>
+			<button name="logInButton" id="logInButton" onClick={createLogInWindow}>Log In</button>
 		</form>
 	);
 };
 
-// render React login component to document
-const createLoginWindow = () => {
+// render React log in component
+const createLogInWindow = () => {
 	ReactDOM.render(
-		<LoginWindow/>,
+		<LogInWindow/>,
 		document.querySelector(".form-container")
 	);
 };
 
-// render React signup component to document
-const createSignupWindow = () => {
+// render React sign up component
+const createSignUpWindow = () => {
 	ReactDOM.render(
-		<SignupWindow/>,
+		<SignUpWindow/>,
 		document.querySelector(".form-container")
 	);
 };
 
-// display login window as default view when page loads
-$(document).ready(createLoginWindow());
+// display log in window as default view when page loads
+$(document).ready(createLogInWindow());

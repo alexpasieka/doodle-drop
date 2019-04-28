@@ -1,42 +1,30 @@
 "use strict";
 
-// redirect after successful AJAX
-var redirect = function redirect(response) {
-	window.location = response.redirect;
-};
-
-// alert user of error
-var error = function error(response) {
-	alert(JSON.parse(response.responseText).error);
-};
-
-// handle provided login information
-var handleLogin = function handleLogin(e) {
+// handle provided log in information
+var handleLogIn = function handleLogIn(e) {
 	// prevent page reload
 	e.preventDefault();
-
-	console.log("hello");
 
 	// send AJAX
 	$.ajax({
 		cache: false,
 		type: 'POST',
-		url: $("#loginForm").attr("action"),
-		data: $("#loginForm").serialize(),
+		url: $("#log-in-form").attr("action"),
+		data: $("#log-in-form").serialize(),
 		dataType: "json",
 		success: redirect,
 		error: error
 	});
 };
 
-// login window React component
-var LoginWindow = function LoginWindow() {
+// log in window React component
+var LogInWindow = function LogInWindow() {
 	return React.createElement(
 		"form",
-		{ id: "loginForm",
-			action: "/login",
+		{ id: "log-in-form",
+			action: "/log-in",
 			method: "POST",
-			onSubmit: handleLogin },
+			onSubmit: handleLogIn },
 		React.createElement(
 			"div",
 			{ className: "input-container" },
@@ -60,23 +48,23 @@ var LoginWindow = function LoginWindow() {
 		React.createElement(
 			"div",
 			{ className: "submit-container" },
-			React.createElement("input", { type: "submit", value: "Sign In" })
+			React.createElement("input", { type: "submit", value: "Log In" })
 		),
 		React.createElement(
 			"label",
-			{ htmlFor: "signupButton" },
+			{ htmlFor: "signUpButton" },
 			"Don't have an account yet?"
 		),
 		React.createElement(
 			"button",
-			{ name: "signupButton", id: "signupButton", onClick: createSignupWindow },
+			{ name: "signUpButton", id: "signUpButton", onClick: createSignUpWindow },
 			"Sign Up"
 		)
 	);
 };
 
-// handle provided signup information
-var handleSignup = function handleSignup(e) {
+// handle provided sign up information
+var handleSignUp = function handleSignUp(e) {
 	// prevent page reload
 	e.preventDefault();
 
@@ -84,22 +72,22 @@ var handleSignup = function handleSignup(e) {
 	$.ajax({
 		cache: false,
 		type: 'POST',
-		url: $("#signupForm").attr("action"),
-		data: $("#signupForm").serialize(),
+		url: $("#sign-up-form").attr("action"),
+		data: $("#sign-up-form").serialize(),
 		dataType: "json",
 		success: redirect,
 		error: error
 	});
 };
 
-// signup window React component
-var SignupWindow = function SignupWindow() {
+// sign up window React component
+var SignUpWindow = function SignUpWindow() {
 	return React.createElement(
 		"form",
-		{ id: "signupForm",
-			action: "/signup",
+		{ id: "sign-up-form",
+			action: "/sign-up",
 			method: "POST",
-			onSubmit: handleSignup },
+			onSubmit: handleSignUp },
 		React.createElement(
 			"div",
 			{ className: "input-container" },
@@ -137,26 +125,26 @@ var SignupWindow = function SignupWindow() {
 		),
 		React.createElement(
 			"label",
-			{ htmlFor: "loginButton" },
+			{ htmlFor: "logInButton" },
 			"Already have an account?"
 		),
 		React.createElement(
 			"button",
-			{ name: "loginButton", id: "loginButton", onClick: createLoginWindow },
+			{ name: "logInButton", id: "logInButton", onClick: createLogInWindow },
 			"Log In"
 		)
 	);
 };
 
-// render React login component to document
-var createLoginWindow = function createLoginWindow() {
-	ReactDOM.render(React.createElement(LoginWindow, null), document.querySelector(".form-container"));
+// render React log in component
+var createLogInWindow = function createLogInWindow() {
+	ReactDOM.render(React.createElement(LogInWindow, null), document.querySelector(".form-container"));
 };
 
-// render React signup component to document
-var createSignupWindow = function createSignupWindow() {
-	ReactDOM.render(React.createElement(SignupWindow, null), document.querySelector(".form-container"));
+// render React sign up component
+var createSignUpWindow = function createSignUpWindow() {
+	ReactDOM.render(React.createElement(SignUpWindow, null), document.querySelector(".form-container"));
 };
 
-// display login window as default view when page loads
-$(document).ready(createLoginWindow());
+// display log in window as default view when page loads
+$(document).ready(createLogInWindow());

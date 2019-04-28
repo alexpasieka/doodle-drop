@@ -44,8 +44,8 @@ var Masthead = function Masthead(props) {
 						),
 						React.createElement(
 							"a",
-							{ className: "dropdown-item", href: "/logout" },
-							"Logout"
+							{ className: "dropdown-item", href: "/log-out" },
+							"Log Out"
 						)
 					)
 				)
@@ -96,8 +96,8 @@ var Masthead = function Masthead(props) {
 							),
 							React.createElement(
 								"a",
-								{ className: "dropdown-item", href: "/logout" },
-								"Logout"
+								{ className: "dropdown-item", href: "/log-out" },
+								"Log Out"
 							)
 						)
 					)
@@ -121,14 +121,14 @@ var Masthead = function Masthead(props) {
 						null,
 						React.createElement(
 							"a",
-							{ href: "/login" },
+							{ href: "/log-in" },
 							"Log In/Sign Up"
 						)
 					)
 				);
 			}
-			// if on the login page
-			else if (window.location.pathname == '/login') {
+			// if on the log in page
+			else if (window.location.pathname == '/log-in') {
 					return React.createElement(
 						React.Fragment,
 						null,
