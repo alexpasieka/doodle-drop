@@ -1,5 +1,22 @@
 "use strict";
 
+// handle password change
+var handleChangePassword = function handleChangePassword(e) {
+	// prevent page reload
+	e.preventDefault();
+
+	// send AJAX
+	$.ajax({
+		cache: false,
+		type: 'POST',
+		url: $("#change-password-form").attr("action"),
+		data: $("#change-password-form").serialize(),
+		dataType: "json",
+		success: window.location = '/user'
+	});
+};
+
+// change password form React component
 var ChangePasswordForm = function ChangePasswordForm() {
 	return React.createElement(
 		"form",
@@ -35,32 +52,8 @@ var ChangePasswordForm = function ChangePasswordForm() {
 	);
 };
 
-var handleChangePassword = function handleChangePassword(e) {
-	e.preventDefault();
-
-	if ($("#new-password").val() == '' || $("#new-password2").val() == '') {
-		alert("All fields are required.");
-		return false;
-	}
-
-	if ($("#new-password").val() !== $("#new-password2").val()) {
-		alert("Passwords do not match.");
-		return false;
-	}
-
-	// send AJAX over jQuery function
-	$.ajax({
-		cache: false,
-		type: 'POST',
-		url: $("#change-password-form").attr("action"),
-		data: $("#change-password-form").serialize(),
-		dataType: "json",
-		success: window.location = '/user'
-	});
-};
-
+// page setup
 var setup = function setup() {
 	ReactDOM.render(React.createElement(ChangePasswordForm, null), document.querySelector(".form-container"));
 };
-
 $(document).ready(setup());

@@ -1,10 +1,7 @@
+// handle new doodle
 const handleDoodle = (e) => {
+	// prevent page reload
 	e.preventDefault();
-
-	if ($("#doodleTitle").val() == '' || $("#doodleImage").val() == '' || $("#doodleDescription").val() == '') {
-		alert("All fields are required.");
-		return;
-	}
 
 	// send AJAX
 	$.ajax({
@@ -16,23 +13,25 @@ const handleDoodle = (e) => {
 	});
 };
 
+// new doodle form React component
 const DoodleForm = () => {
 	return (
 		<form id="doodleForm"
-					action="/upload"
+					action="/draw"
 					method="POST"
 					onSubmit={handleDoodle}>
 
 			<input name="image" type="hidden"/>
 			<input type="submit" value="Post"/>
 		</form>
-);
+	);
 };
 
+// page setup
 const setup = () => {
 	ReactDOM.render(
 		<DoodleForm/>,
-		document.querySelector("#content")
+		document.querySelector("#post-doodle")
 	);
 
 	// ** DRAWING CODE **
@@ -75,7 +74,7 @@ const setup = () => {
 		c2s.moveTo(mousePosition.x, mousePosition.y);
 	};
 
-	// mouse draws
+	// mouse drawing
 	const mouseMove = (e) => {
 		if (!dragging) return;
 
@@ -109,6 +108,5 @@ const setup = () => {
 	canvas.onmouseup = mouseUp;
 	canvas.onmouseout = mouseOut;
 };
-
 $(document).ready(setup());
 

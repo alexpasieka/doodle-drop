@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8"/>
-    <title>Doodle Drop</title>
+    <title>{{username}}</title>
 
     <!-- Favicon -->
     <link rel="shortcut icon" href="/assets/img/favicon.png"/>
@@ -24,6 +24,8 @@
 
     <!-- Doodles Style -->
     <link rel="stylesheet" type="text/css" href="/assets/style/doodles.css"/>
+    <!-- Form Style -->
+    <link rel="stylesheet" type="text/css" href="/assets/style/form.css"/>
 
     <!-- *** EXTERNAL JAVASCRIPT *** -->
     <!-- React -->
@@ -42,10 +44,12 @@
     <div id="masthead" data-loggedin={{loggedIn}} data-username={{username}}></div>
 
     <script>
+        // DOMParser variables
         let parser;
         let doc;
         let image;
 
+        // return string with decoded HTML entities
         const decodeEntities = (svg) => {
             let txt = document.createElement('textarea');
             txt.innerHTML = svg;
@@ -54,41 +58,37 @@
     </script>
 
     <!-- User Doodles -->
-    <section id="userDoodles">
-        <div id="doodles">
-            {{#if doodles}}
-                {{#each doodles}}
-                    <div class="doodle"id='id_{{this._id}}'>
-                        <form method="POST"
-                              action="/delete"
-                              style="text-align: right; width: 100%;">
+    <div id="doodles">
+        {{#if doodles}}
+            {{#each doodles}}
+                <div class="doodle" id='id_{{this._id}}'>
+                    <!-- Delete Doodle Form -->
+                    <form id="delete-doodle"
+                          method="POST"
+                          action="/delete">
 
-                            <input type="submit" value="Delete" style="width: 100%;"/>
-                            <input type="hidden" name="_id" value={{this._id}} />
-                        </form>
-                    </div>
+                        <input type="submit" value="Delete"/>
+                        <input type="hidden" name="_id" value={{this._id}} />
+                    </form>
+                </div>
 
-                    <script>
-                        image = decodeEntities('{{this.image}}');
-                        image = decodeEntities(image);
+                <script>
+                    // decode HTML entities from stored image string twice (for odd reasons)
+                    image = decodeEntities('{{this.image}}');
+                    image = decodeEntities(image);
 
-                        parser = new DOMParser();
-                        doc = parser.parseFromString(image, 'image/svg+xml');
-                        document.querySelector('#id_{{this._id}}').innerHTML += '<svg viewBox="0 0 400 400">' + doc.documentElement.innerHTML + '</svg>';
-
-                    </script>
-
-                {{/each}}
-            {{else}}
-                <h3 class="noDoodles">No Doodles Yet</h3>
-            {{/if}}
-        </div>
-    </section>
-
+                    // encode SVG from stored image string
+                    parser = new DOMParser();
+                    doc = parser.parseFromString(image, 'image/svg+xml');
+                    document.querySelector('#id_{{this._id}}').innerHTML +=
+                            '<svg viewBox="0 0 400 400">' + doc.documentElement.innerHTML + '</svg>';
+                </script>
+            {{/each}}
+        {{/if}}
+    </div>
 
     <!-- Masthead Script -->
     <script src="/assets/src/masthead.js"></script>
-
 </body>
 
 </html>

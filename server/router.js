@@ -17,9 +17,12 @@ const router = (app) => {
 	// user page
   app.get('/user', middleware.requiresLogin, controllers.Doodle.userPage);
 
-  // upload page
-  app.get('/upload', middleware.requiresLogin, controllers.Doodle.uploadPage);
-  app.post('/upload', middleware.requiresLogin, controllers.Doodle.upload);
+  // draw page
+  app.get('/draw', middleware.requiresLogin, controllers.Doodle.drawPage);
+  app.post('/draw', middleware.requiresLogin, controllers.Doodle.postDoodle);
+
+  // delete doodle
+  app.post('/delete', middleware.requiresLogin, controllers.Doodle.deleteDoodle);
 
 	// change password page
   app.get('/change-password', middleware.requiresLogin, controllers.Account.changePasswordPage);
@@ -28,13 +31,7 @@ const router = (app) => {
 	// logout
   app.get('/logout', middleware.requiresLogin, controllers.Account.logout);
 
-  app.get('/get', controllers.Doodle.getDoodle);
-
-  app.post('/delete', middleware.requiresLogin, controllers.Doodle.deleteDoodle);
-
-  app.get('/draw', middleware.requiresLogin, controllers.Doodle.drawDoodle);
-
-  // 404 page not found redirection
+	// 404 page not found redirection
   app.get('/*', controllers.Doodle.pageNotFound);
 };
 

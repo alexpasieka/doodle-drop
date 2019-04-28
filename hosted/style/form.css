@@ -28,3 +28,12 @@
         border: none;
         border-radius: 0.5vw;
         background-color: #94EBD8; }
+
+#post-doodle {
+  text-align: center; }
+
+#delete-doodle {
+  text-align: right;
+  width: 100%; }
+  #delete-doodle input {
+    width: 100%; }

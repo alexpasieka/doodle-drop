@@ -1,12 +1,9 @@
-"use strict";
+'use strict';
 
+// handle new doodle
 var handleDoodle = function handleDoodle(e) {
+	// prevent page reload
 	e.preventDefault();
-
-	if ($("#doodleTitle").val() == '' || $("#doodleImage").val() == '' || $("#doodleDescription").val() == '') {
-		alert("All fields are required.");
-		return;
-	}
 
 	// send AJAX
 	$.ajax({
@@ -18,20 +15,22 @@ var handleDoodle = function handleDoodle(e) {
 	});
 };
 
+// new doodle form React component
 var DoodleForm = function DoodleForm() {
 	return React.createElement(
-		"form",
-		{ id: "doodleForm",
-			action: "/upload",
-			method: "POST",
+		'form',
+		{ id: 'doodleForm',
+			action: '/draw',
+			method: 'POST',
 			onSubmit: handleDoodle },
-		React.createElement("input", { name: "image", type: "hidden" }),
-		React.createElement("input", { type: "submit", value: "Post" })
+		React.createElement('input', { name: 'image', type: 'hidden' }),
+		React.createElement('input', { type: 'submit', value: 'Post' })
 	);
 };
 
+// page setup
 var setup = function setup() {
-	ReactDOM.render(React.createElement(DoodleForm, null), document.querySelector("#content"));
+	ReactDOM.render(React.createElement(DoodleForm, null), document.querySelector("#post-doodle"));
 
 	// ** DRAWING CODE **
 	// canvas contexts
@@ -73,7 +72,7 @@ var setup = function setup() {
 		c2s.moveTo(mousePosition.x, mousePosition.y);
 	};
 
-	// mouse draws
+	// mouse drawing
 	var mouseMove = function mouseMove(e) {
 		if (!dragging) return;
 
@@ -107,5 +106,4 @@ var setup = function setup() {
 	canvas.onmouseup = mouseUp;
 	canvas.onmouseout = mouseOut;
 };
-
 $(document).ready(setup());

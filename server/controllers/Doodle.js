@@ -1,115 +1,104 @@
 // import models
 const models = require('../models');
 
-// referencing doodle model
+// reference doodle model
 const Doodle = models.Doodle;
 
-// get all uploaded doodles and display them on home page
+// logged in variables
+let loggedIn = false;
+let username = '';
+
+// check if the user is logged in
+const isLoggedIn = (req) => {
+  if (req.session.account !== undefined) {
+    loggedIn = true;
+    username = req.session.account.username;
+  } else {
+  	loggedIn = false;
+  	username = '';
+  }
+};
+
+// get all posted doodles and display them on home page
 const homePage = (req, res) => {
   Doodle.DoodleModel.findAll((err, docs) => {
-    if (err) {
-      return res.status(400).json({ error: 'An error occurred.' });
-    }
-
-    // if the user is logged in, pass their username over to the view
-    let loggedIn = false;
-    let username = '';
-    if (req.session.account !== undefined) {
-      loggedIn = true;
-      username = req.session.account.username;
-    }
-
-    return res.render('home', { doodles: docs, loggedIn, username });
-  });
-};
-
-const deleteDoodle = (req, res) => {
-  console.log(req.body._id);
-  Doodle.DoodleModel.deleteOne({_id: req.body._id}, (err) => {
-    if (!err) {
-      return res.redirect('/user');
-    }
-  });
-};
-
-const drawDoodle = (req, res) => {
-	// if the user is logged in, pass their username over to the view
-	let loggedIn = false;
-	let username = '';
-	if (req.session.account !== undefined) {
-		loggedIn = true;
-		username = req.session.account.username;
-	}
-
-	return res.render('draw', { loggedIn, username });
-};
-
-const getDoodle = (req, res) => {
-  Doodle.DoodleModel.findOne({ title: "alex" }, ).exec((err, docs) => { console.log(docs._id); });
-};
-
-// get all doodles uploaded by user and display them on user page
-const userPage = (req, res) => {
-  Doodle.DoodleModel.findByOwner(req.session.account._id, (err, docs) => {
+    // error check
     if (err) {
       return res.status(400).json({ error: 'An error occurred.' });
     }
 
 		// if the user is logged in, pass their username over to the view
-		let loggedIn = false;
-		let username = '';
-		if (req.session.account !== undefined) {
-			loggedIn = true;
-			username = req.session.account.username;
-		}
+    isLoggedIn(req);
+    return res.render('home', { doodles: docs, loggedIn, username });
+  });
+};
 
+// get all doodles posted by logged in user and display them on user page
+const userPage = (req, res) => {
+  Doodle.DoodleModel.findByOwner(req.session.account._id, (err, docs) => {
+		// error check
+    if (err) {
+      return res.status(400).json({ error: 'An error occurred.' });
+    }
+
+		// if the user is logged in, pass their username over to the view
+    isLoggedIn(req);
     return res.render('user', { doodles: docs, loggedIn, username });
   });
 };
 
-// display upload doodle page
-const uploadPage = (req, res) => {
-  res.render('upload');
+// display page for drawing new doodles
+const drawPage = (req, res) => {
+	// if the user is logged in, pass their username over to the view
+  isLoggedIn(req);
+  return res.render('draw', { loggedIn, username });
 };
 
-// upload new doodle
-const upload = (req, res) => {
-  // make sure all required fields are filled out
-  // if (!req.body.title || !req.body.image || !req.body.description) {
-  //   return res.status(400).json({ error: 'All fields are required.' });
-  // }
-
-  // new doodle data
+// post new doodle
+const postDoodle = (req, res) => {
+	// new doodle data
   const doodle = {
-    //title: req.body.title,
     image: req.body.image,
-    //description: req.body.description,
     owner: req.session.account._id,
   };
 
-  // create new doodle
+	// create new doodle
   const newDoodle = new Doodle.DoodleModel(doodle);
 
-  // start promise by saving new doodle to database
+	// start promise by saving new doodle to database
   const doodlePromise = newDoodle.save();
 
-  // reload user page once new doodle is saved
+	// reload user page once new doodle is saved
   doodlePromise.then(() => res.json({ redirect: '/user' }));
 
-  // error checking promise
+	// error checking promise
   doodlePromise.catch((err) => {
-    // user can't upload an identical doodle
+		// user can't post an identical doodle
     if (err.code === 11000) {
       return res.status(400).json({ error: 'Doodle already exists.' });
     }
 
-    // handle any other errors
+		// handle any other errors
     return res.status(400).json({ error: 'An error occurred.' });
   });
 
   return doodlePromise;
 };
 
+// delete specified doodle
+const deleteDoodle = (req, res) => {
+  Doodle.DoodleModel.deleteOne({ _id: req.body._id }, (err) => {
+    // error check
+    if (err) {
+      return res.status(400).json({ error: 'An error occurred.' });
+    }
+
+    // reload user page
+    return res.redirect('/user');
+  });
+};
+
+// redirect to home page if user goes to unknown page
 const pageNotFound = (req, res) => {
   res.redirect('/');
 };
@@ -117,11 +106,9 @@ const pageNotFound = (req, res) => {
 // module exports
 module.exports = {
   homePage,
-  getDoodle,
-  deleteDoodle,
-  drawDoodle,
   userPage,
-  uploadPage,
-  upload,
+  drawPage,
+  postDoodle,
+  deleteDoodle,
   pageNotFound,
 };

@@ -39,7 +39,7 @@ const AccountSchema = new mongoose.Schema({
   },
 });
 
-// upload new account to API
+// post new account to API
 AccountSchema.statics.toAPI = doc => ({
   username: doc.username,
   _id: doc._id,
@@ -65,14 +65,15 @@ AccountSchema.statics.findByUsername = (name, callback) => {
 
 // compare given password to password within database
 const validatePassword = (doc, password, callback) => {
-	const pass = doc.password;
+  const pass = doc.password;
 
-	return crypto.pbkdf2(password, doc.salt, iterations, keyLength, 'RSA-SHA512', (err, hash) => {
-		if (hash.toString('hex') !== pass) {
-			return callback(false);
-		}
-		return callback(true);
-	});
+  return crypto.pbkdf2(password, doc.salt, iterations, keyLength, 'RSA-SHA512', (err, hash) => {
+    if (hash.toString('hex') !== pass) {
+      return callback(false);
+    }
+
+    return callback(true);
+  });
 };
 
 // authenticate user by given username and password
@@ -94,10 +95,6 @@ AccountModel.findByUsername(username, (err, doc) => {
     return callback();
   });
 });
-
-AccountSchema.statics.changePassword = (user, newPassword) => {
-  AccountModel.updateOne({ _id: user }, { password: newPassword });
-};
 
 // create model based on schema
 AccountModel = mongoose.model('Account', AccountSchema);

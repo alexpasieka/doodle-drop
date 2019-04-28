@@ -1,3 +1,20 @@
+// handle password change
+const handleChangePassword = (e) => {
+	// prevent page reload
+	e.preventDefault();
+
+	// send AJAX
+	$.ajax({
+		cache: false,
+		type: 'POST',
+		url: $("#change-password-form").attr("action"),
+		data: $("#change-password-form").serialize(),
+		dataType: "json",
+		success: window.location = '/user',
+	});
+};
+
+// change password form React component
 const ChangePasswordForm = () => {
 	return (
 		<form id="change-password-form"
@@ -22,35 +39,11 @@ const ChangePasswordForm = () => {
 	);
 };
 
-const handleChangePassword = (e) => {
-	e.preventDefault();
-
-	if ($("#new-password").val() == '' || $("#new-password2").val() == '') {
-		alert("All fields are required.");
-		return false;
-	}
-
-	if ($("#new-password").val() !== $("#new-password2").val()) {
-		alert("Passwords do not match.");
-		return false;
-	}
-
-	// send AJAX over jQuery function
-	$.ajax({
-		cache: false,
-		type: 'POST',
-		url: $("#change-password-form").attr("action"),
-		data: $("#change-password-form").serialize(),
-		dataType: "json",
-		success: window.location = '/user',
-	});
-};
-
+// page setup
 const setup = () => {
 	ReactDOM.render(
 		<ChangePasswordForm/>,
 		document.querySelector(".form-container")
 	);
 };
-
 $(document).ready(setup());

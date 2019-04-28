@@ -35,11 +35,6 @@ const handleLogin = (e) => {
 	// don't automatically refresh the page
 	e.preventDefault();
 
-	if ($("#username").val() == '' || $("#password").val() == '') {
-		console.log("All fields are required.");
-		return false;
-	}
-
 	// send AJAX over jQuery function
 	$.ajax({
 		cache: false,
@@ -50,7 +45,7 @@ const handleLogin = (e) => {
 		success: redirect,
 	});
 
-	return false;
+	//return false;
 };
 
 // define signup React element
@@ -89,16 +84,6 @@ const SignupWindow = () => {
 const handleSignup = (e) => {
 	e.preventDefault();
 
-	if ($("#username").val() == '' || $("#password").val() == '' || $("#password2").val() == '') {
-		console.log("All fields are required.");
-		return false;
-	}
-
-	if ($("#password").val() !== $("#password2").val()) {
-		console.log("Passwords do not match.");
-		return false;
-	}
-
 	// send AJAX over jQuery function
 	$.ajax({
 		cache: false,
@@ -109,7 +94,7 @@ const handleSignup = (e) => {
 		success: redirect,
 	});
 
-	return false;
+	//return false;
 };
 
 // render React login element to document

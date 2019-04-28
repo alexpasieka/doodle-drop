@@ -42,10 +42,12 @@
     <div id="masthead" data-loggedin={{loggedIn}} data-username={{username}}></div>
 
     <script>
+        // DOMParser variables
         let parser;
         let doc;
         let image;
 
+        // return string with decoded HTML entities
         const decodeEntities = (svg) => {
             let txt = document.createElement('textarea');
             txt.innerHTML = svg;
@@ -53,61 +55,29 @@
         };
     </script>
 
+    <!-- All Doodles -->
+    <div id="doodles">
+        {{#if doodles}}
+            {{#each doodles}}
+                <div class="doodle" id='id_{{this._id}}'></div>
 
-    <!-- User Doodles -->
-    <section id="userDoodles">
-        <div id="doodles">
-            {{#if doodles}}
-                {{#each doodles}}
-                    <div class="doodle"id='id_{{this._id}}'></div>
+                <script>
+                    // decode HTML entities from stored image string twice (for odd reasons)
+                    image = decodeEntities('{{this.image}}');
+                    image = decodeEntities(image);
 
-                    <script>
-                        image = decodeEntities('{{this.image}}');
-                        image = decodeEntities(image);
-
-                        parser = new DOMParser();
-                        doc = parser.parseFromString(image, 'image/svg+xml');
-                        document.querySelector('#id_{{this._id}}').innerHTML += '<svg viewBox="0 0 400 400">' + doc.documentElement.innerHTML + '</svg>';
-                    </script>
-
-                {{/each}}
-            {{else}}
-                <h3 class="noDoodles">No Doodles Yet</h3>
-            {{/if}}
-        </div>
-    </section>
-
-
-
-
-
-
-    <!-- Selected Doodle Modal -->
-    <div id="selected-recipe-modal" class="modal">
-        <!-- Modal Content Container -->
-        <div class="modal-content">
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <!-- Doodle Title -->
-                <h2 id="selected-recipe-name"></h2>
-
-                <!-- Close Button -->
-                <button id="close-button" onclick="document.querySelector('#selected-recipe-modal').style.display = 'none'">Close</button>
-            </div>
-        </div>
+                    // encode SVG from stored image string
+                    parser = new DOMParser();
+                    doc = parser.parseFromString(image, 'image/svg+xml');
+                    document.querySelector('#id_{{this._id}}').innerHTML =
+                            '<svg viewBox="0 0 400 400">' + doc.documentElement.innerHTML + '</svg>';
+                </script>
+            {{/each}}
+        {{/if}}
     </div>
 
     <!-- Masthead Script -->
     <script src="/assets/src/masthead.js"></script>
-
-<script>
-    showModal = (title) => {
-        const recipeModal = document.querySelector('#selected-recipe-modal');
-        recipeModal.style.display = "flex";
-
-        document.querySelector('#selected-recipe-name').innerHTML = title;
-    };
-</script>
 </body>
 
 </html>
